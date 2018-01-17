@@ -2,6 +2,7 @@
 
 namespace App\Api\V1\Controllers;
 
+use App\Api\V1\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -23,6 +24,32 @@ class AuthController extends BaseController
         parent::__construct();
     }
 
+    /**
+     * 用户注册
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postSignup(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'name' => 'required|min:3|max:20|unique:clients',
+                'email' => 'required|email|max:50|unique:clients',
+                'password' => 'required|min:8|max:20'
+            ]);
+        } catch (ValidationException $e) {
+            return $e->getResponse();
+        }
+        $newUser = [
+            'email' => $request->get('email'),
+            'name' => $request->get('name'),
+            'password' => bcrypt($request->get('password'))
+        ];
+        $user = User::create($newUser);
+        $token = JWTAuth::fromUser($user);
+        return response()->json(['code' => 200, 'token' => $token], 200);
+    }    
+    
     /**
      * 用户登录
      * @param \Illuminate\Http\Request $request
