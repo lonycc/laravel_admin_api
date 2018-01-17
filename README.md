@@ -42,6 +42,86 @@
 
 ![操作管理](./screenshot/5.png)
 
+## api调用测试
+
+**注册用户**
+
+`curl -X POST -F "name=test" -F "email=test@test.com" -F "password=test1234" "http://localhost:8000/api/auth/signup"`
+
+返回结果
+
+```
+{
+  "code":200,
+  "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvYXV0aC9zaWdudXAiLCJpYXQiOjE1MTYxNTM3MDcsImV4cCI6MTUxNjE1NzMwNywibmJmIjoxNTE2MTUzNzA3LCJqdGkiOiJkOUQ5N250MzNOVWFvSXM1In0.3GIsMuQhRXXwO4vIn7kLR9BhW3kcbNxZw0vUGgqvEDw"
+}
+```
+
+**登录**
+
+`curl -X POST -F "email=test@test.com" -F "password=test1234" "http://localhost:8000/api/auth/login"`
+
+返回结果
+
+```
+{
+  "code":200,
+  "message":"token生成成功",
+  "data":{
+    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTUxNjE1Mzc3NCwiZXhwIjoxNTE2MTU3Mzc0LCJuYmYiOjE1MTYxNTM3NzQsImp0aSI6IlV0dnhuaVFRc3M4bjFUaDEifQ.lNguCrjUvukdr4lQekxvnJxySX6rn0ab-g7RpVeiL10"
+  }
+}
+```
+
+**请求权限数据**
+
+`curl -X GET -H "Authorization: Bearer 上面获取到的token" "http://localhost:8000/api/auth/user"`
+
+返回结果
+
+```
+{
+  "code": 200,
+  "message": "已授权的用户",
+  "data": {
+    "id": 1,
+    "email": "test@test.com",
+    "name": "test",
+    "created_at": null,
+    "updated_at": null
+  }
+}
+```
+
+**刷新授权**
+
+`curl -X PATCH -H "Authorization: Bearer 上面获取到的token" "http://localhost:8000/api/auth/refresh"`
+
+返回结果
+
+```
+{
+  "code": 200,
+  "message": "token刷新成功",
+  "data": {
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvYXV0aC9yZWZyZXNoIiwiaWF0IjoxNTE2MTUzNzc0LCJleHAiOjE1MTYxNTc4NzAsIm5iZiI6MTUxNjE1NDI3MCwianRpIjoiSHNYclNGc1h1eGdUOVVmdCJ9.7d-kK_Bnva9W5U2dzBNVhvFaGcLbY7Ikqm891uqiXEE"
+  }
+}
+```
+
+**删除授权**
+
+`curl -X DELETE "Authorization: Bearer 上面获取到的token" "http://localhost:8000/api/auth/invalidate"`
+
+返回结果
+
+```
+{
+  "code": 200,
+  "message": "token删除成功"
+}
+```
+
 ## 图形验证码
 
 `composer require mews/captcha`
