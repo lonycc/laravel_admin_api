@@ -3,16 +3,17 @@
 
 ## 启动步骤
 
-> 1 安装PHP依赖库：composer install
+> 1 先clone本项目：git clone https://github.com/tonyxyl/laravel_admin_api.git
 
-> 2 修改.env数据库配置信息
+> 2 安装PHP依赖库：composer install
 
-> 3 执行： php artisan migrate
+> 3 修改.env数据库配置信息
 
-> 4 执行： php artisan db:seed --class=PermissionSeeder
+> 4 执行： php artisan migrate
 
-> 5 启动： php artisan serve
+> 5 执行： php artisan db:seed --class=PermissionSeeder
 
+> 6 启动： php artisan serve
 
 
 ## 注意
@@ -29,6 +30,17 @@
 
 管理员账号：admin/123456
 
+## 后台截图
+
+![登录页面](./screenshot/1.png)
+
+![后台首页](./screenshot/2.png)
+
+![用户管理](./screenshot/3.png)
+
+![角色管理](./screenshot/4.png)
+
+![操作管理](./screenshot/5.png)
 
 ## 图形验证码
 
