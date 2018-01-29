@@ -1,4 +1,4 @@
-# laravel5.4 后台管理
+# laravel5.5 后台管理
 
 
 ## 启动步骤
@@ -9,11 +9,11 @@
 
 > 3 修改.env数据库配置信息
 
-> 4 执行： php artisan migrate
+> 4 执行迁移命令： php artisan migrate
 
-> 5 执行： php artisan db:seed --class=PermissionSeeder
+> 5 执行数据填充： php artisan db:seed --class=PermissionSeeder
 
-> 6 启动： php artisan serve
+> 6 启动服务： php artisan serve
 
 
 ## 注意
@@ -29,18 +29,6 @@
 用户角色：用户名/密码
 
 管理员账号：admin/123456
-
-## 后台截图
-
-![登录页面](./screenshot/1.png)
-
-![后台首页](./screenshot/2.png)
-
-![用户管理](./screenshot/3.png)
-
-![角色管理](./screenshot/4.png)
-
-![操作管理](./screenshot/5.png)
 
 ## api调用测试
 
@@ -122,7 +110,22 @@
 }
 ```
 
-## 图形验证码
+## 后台截图
+
+![登录页面](./screenshot/1.png)
+
+![后台首页](./screenshot/2.png)
+
+![用户管理](./screenshot/3.png)
+
+![角色管理](./screenshot/4.png)
+
+![操作管理](./screenshot/5.png)
+
+
+## 常用的第三方服务包
+
+**图形验证码**
 
 `composer require mews/captcha`
 
@@ -132,7 +135,7 @@
 
 `php artisan vendor:publish`  #生成config/captcha.php
 
-## 图片处理扩展包
+**图片处理扩展包**
 
 `composer require intervention/image`
 
@@ -158,7 +161,7 @@
 
 `$img = Image::make('images/avatar.jpg')->resize(200, 200)->insert('images/new_avatar.jpg', 'bottom-right', 15, 10);`
 
-## excel服务
+**excel服务**
 
 `composer require "maatwebsite/excel:~2.1.0"`
 
@@ -168,7 +171,7 @@
 
 `php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider"`  #生成config/excel.php
 
-## pdf 服务
+**pdf 服务**
 
 `composer require barryvdh/laravel-dompdf`
 
@@ -178,7 +181,7 @@
 
 `php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"`  #生成config/dompdf.php
 
-## html过滤包
+**html过滤包**
 
 `composer require mews/purifier`
 
@@ -192,7 +195,7 @@
 
 `Purifier::clean(Input::get('inputname'));`
 
-## 浏览器跨域
+**浏览器跨域**
 
 `composer require barryvdh/laravel-cors`
 
@@ -200,7 +203,7 @@
 
 `php artisan vendor:publish --provider="Barryvdh\Cors\ServiceProvider"`  #生成config/cors.php
 
-## 根据ip获取地址位置
+**根据ip获取地址位置**
 
 `composer require "zhuzhichao/ip-location-zh"`
 
