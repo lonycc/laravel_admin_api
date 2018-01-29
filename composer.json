@@ -13,7 +13,7 @@
         "dingo/api": "1.0.*@dev",
         "fguillot/json-rpc": "@stable",
         "intervention/image": "^2.4",
-        "laravel/framework": "5.4.*",
+        "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "maatwebsite/excel": "^2.1",
         "mews/captcha": "^2.1",
@@ -62,10 +62,10 @@
         "sort-packages": true,
         "optimize-autoloader": true
     },
-	"repositories": {
-		"packagist": {
-			"type": "composer",
-			"url": "https://packagist.phpcomposer.com"
-		}
-	}
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
 }
