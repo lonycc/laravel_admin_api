@@ -24,6 +24,7 @@
                                     <td>{{$lottery->info}}</td>
                                     <td>
                                         <a type="button" class="btn" href="/lottery/{{$lottery->id}}/edit" >编辑</a>
+                                        <a type="button" class="btn resource-delete" delete-url="/lottery/{{$lottery->id}}" href="#" >删除</a>
                                         <a type="button" class="btn" href="/lottery/{{$lottery->id}}/award" >奖项管理</a>
                                         <a type="button" class="btn" href="/lottery/{{$lottery->id}}/lotto" >数据管理</a>
                                     </td>

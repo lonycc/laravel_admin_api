@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Lottery;
 use App\Models\Lotto;
+use Illuminate\Validation\Rule;
 
 class LotteryController extends Controller
 {
@@ -26,8 +27,8 @@ class LotteryController extends Controller
     public function store()
     {
         $this->validate(request(),[
-            'name'  => 'required|string|min:3|max:50|unique:lottery',
-            'info'  => 'required|max:200'
+            'name'  => 'required|string|min:3|max:50unique:lottery',
+            'info'  => 'max:50'
         ]);
 
         $name = request('name');
@@ -46,10 +47,15 @@ class LotteryController extends Controller
     public function update(Lottery $lottery)
     {
         $this->validate(request(), [
-            'name'      => 'string|min:3|max:50',
-            'info'      => 'required|max:50'
+            'name' => [
+                                'string',
+                                'min:3',
+                                'max:50',
+                                Rule::unique('lottery')->ignore($lottery->id)
+                            ],
+            'info' => 'max:50'
         ]);
-        $lottery->name     = request('name');
+        $lottery->name  = request('name');
         $lottery->info     = request('info');
         $lottery->save();
         return redirect('/lottery');
@@ -59,24 +65,30 @@ class LotteryController extends Controller
     public function lotto(Lottery $lottery)
     {
         $lottos = Lotto::all();
-        $myLotto = $lottery->lotto;
-        return view('lottery.lotto', compact('lottery', 'lottos', 'myLotto'));    
+        return view('lottery.lotto', compact('lottery', 'lottos'));
     }
 
     // 保存项目-数据集关系
-    
     public function storeLotto(Lottery $lottery)
     {
-        $this->validate(request(),[
+        $this->validate(request(), [
             'lotto' => 'integer'
-        ]);
-        $lotto = Lotto::find(request('lotto'));
-        $myLotto = $lottery->lotto;
-        
-        $lottery->assignLotto();
-        
-        return back();
+        ], ['lotto.integer' => '数据集不能空']);
+        $lottery->lotto_id = request('lotto');
+        $lottery->save();
+        return redirect('/lottery');
     }
 
+    // 删除项目
+    public function destroy(Lottery $lottery)
+    {
+        $lottery->delete();
+        // 还要把绑定的奖项删掉
+
+        return [
+            'error' => 0,
+            'msg'   => ''
+        ];
+    }
 
 }

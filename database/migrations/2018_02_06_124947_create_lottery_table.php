@@ -17,6 +17,7 @@ class CreateLotteryTable extends Migration
             $table->increments('id');
             $table->string('name', 50)->unique();
             $table->string('info', 200)->nullable()->default('');
+            $table->integer('lotto_id')->nullable()->default(0);
             $table->timestamps();
         });
     }

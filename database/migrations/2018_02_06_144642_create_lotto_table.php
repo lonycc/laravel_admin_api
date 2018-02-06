@@ -18,15 +18,10 @@ class CreateLottoTable extends Migration
             $table->string('name', 50);
             $table->string('info', 50)->nullable()->default('');
         });
-        Schema::create('lottery_lotto_data', function (Blueprint $table) {
+        Schema::create('lotto_data', function (Blueprint $table) {
             $table->increments('id');
             $table->string('main', 50);
             $table->string('other', 200)->nullable()->default('');
-            $table->integer('lotto_id');
-        });
-        Schema::create('lottery_lotto', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('lottery_id');
             $table->integer('lotto_id');
         });
     }

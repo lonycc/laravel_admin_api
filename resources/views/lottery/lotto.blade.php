@@ -21,7 +21,7 @@
                                     <option value="">请选择数据集</option>
                                     @foreach($lottos as $lotto)
                                     <option value="{{$lotto->id}}"
-                                    @if($myLotto->id === $lotto->id)
+                                    @if($lotto->id == $lottery->lotto_id)
                                     selected
                                     @endif
                                     >{{$lotto->name}}</option>

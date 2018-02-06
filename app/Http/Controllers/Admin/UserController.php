@@ -7,6 +7,7 @@ use App\Models\AdminPermission;
 use App\Models\AdminRole;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -44,8 +45,13 @@ class UserController extends Controller
     public function update(User $user)
     {
         $this->validate(request(), [
-            'name'      => 'string|min:3|max:10',
-            'email'     => 'email'
+            'name' => [
+                                'string',
+                                'min:3',
+                                'max:10',
+                                Rule::unique('users')->ignore($user->id)
+                            ],
+            'email' => 'email'
         ]);
         $user->name     = request('name');
         $user->email    = request('email');
@@ -94,7 +100,7 @@ class UserController extends Controller
         $roles = $user->roles;
         foreach($roles as $role){
             $user->deleteRole($role);
-	  }
+        }
         $user->delete();
         return [
             'error' => 0,
