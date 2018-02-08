@@ -27,7 +27,7 @@ class LottoController extends Controller
     public function store()
     {
         $this->validate(request(),[
-            'name'  => 'required|string|min:3|max:50unique:lotto',
+            'name'  => 'required|string|min:3|max:50|unique:lotto',
             'info'  => 'max:50'
         ]);
 
@@ -48,11 +48,11 @@ class LottoController extends Controller
     {
         $this->validate(request(), [
             'name' => [
-                                'string',
-                                'min:3',
-                                'max:50',
-                                Rule::unique('lotto')->ignore($lotto->id)
-                            ],
+                'string',
+                'min:3',
+                'max:50',
+                Rule::unique('lotto')->ignore($lotto->id)
+                ],
             'info' => 'max:50'
         ]);
         $lotto->name  = request('name');
@@ -73,17 +73,20 @@ class LottoController extends Controller
         ];
     }
 
+    // 关联数据列表
     public function data(Lotto $lotto)
     {
         $datas = LottoData::where('lotto_id', $lotto->id)->paginate(20);
         return view('lotto.data', compact('lotto', 'datas'));
     }
 
+    // 导入表单
     public function import(Lotto $lotto)
     {
         return view('lotto.import', compact('lotto', 'message'));
     }
 
+    // 导入操作
     public function storeImport(Lotto $lotto, Request $request)
     {
         $file = $request->xls;

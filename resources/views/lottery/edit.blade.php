@@ -19,14 +19,14 @@
                         {{csrf_field()}}
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="exampleInputName">项目名</label>
-                                <input type="text" class="form-control" name="name" value="{{$lottery->name}}">
+                                <label for="name">项目名</label>
+                                <input type="text" class="form-control" name="name" value="{{$lottery->name}}" />
                             </div>
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">项目描述</label>
-                                <input type="text" class="form-control" name="info" value="{{$lottery->info}}">
+                                <label for="info">项目描述</label>
+                                <input type="text" class="form-control" name="info" value="{{$lottery->info}}" />
                             </div>
                         </div>
                         <!-- /.box-body -->

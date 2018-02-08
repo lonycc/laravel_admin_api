@@ -18,6 +18,10 @@ class CreateAdminPermissionTable extends Migration
             $table->string('name');
             $table->string('description')->nullable()->default('');
             $table->integer('parent_id');
+            $table->string('class', 100)->nullable()->default('');
+		    $table->string('namespace', 100)->nullable()->default('');
+		    $table->string('controller', 100)->nullable()->default('');
+		    $table->string('action', 100)->nullable()->default('');
         });
 
         Schema::create('admin_roles', function (Blueprint $table) {

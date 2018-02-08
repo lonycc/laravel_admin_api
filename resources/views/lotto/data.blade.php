@@ -8,7 +8,7 @@
                         <h3 class="box-title">数据列表</h3>
                     </div>
                     <a type="button" class="btn " href="/lotto/{{$lotto->id}}/import" >导入数据</a>
-                    <a type="button" class="btn " href="/lotto/{{$lotto->id}}/clear" >清空数据</a>
+                    <a type="button" class="btn resource-delete" delete-url="/data/{{$lotto->id}}" href="#" >删除</a>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">

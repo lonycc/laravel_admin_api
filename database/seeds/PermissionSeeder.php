@@ -72,7 +72,8 @@ class PermissionSeeder extends Seeder
             if (isset($val['children']) && $val['children']) {
                 $this->permission_seed($val['children'], $model->id);
             }
-            /*if ($val['action_class'] == 'Test1Controller' || $val['action_name'] == '测试模块1') {
+            /*
+            if ($val['action_class'] == 'Test1Controller' || $val['action_name'] == '测试模块1') {
                 $this->role1->actions()->save($model);
             }
             if ($val['action_class'] == 'Test2Controller' || $val['action_name'] == '测试模块2') {
@@ -81,7 +82,8 @@ class PermissionSeeder extends Seeder
             if ($val['action_class'] == 'HomeController') {
                 $this->role1->actions()->save($model);
                 $this->role2->actions()->save($model);
-            }*/
+            }
+            */
         }
     }
 
@@ -318,6 +320,42 @@ class PermissionSeeder extends Seeder
                                     'action' => 'destroy',
                                 ],
                         ],
+                ],
+            5 =>
+                [
+                    'id' => 21,
+                    'name' => '乐透管理',
+                    'description' => '',
+                    'parent_id' => 0,
+                    'class' => 'fa-th',
+                    'namespace' => '',
+                    'controller' => '',
+                    'action' => '',
+                    'children' => [],
+                ],
+            6 =>
+                [
+                    'id' => 22,
+                    'name' => '项目',
+                    'description' => '抽奖项目',
+                    'parent_id' => 21,
+                    'class' => 'fa-chrome',
+                    'namespace' => 'App\\Http\\Controllers\\Admin',
+                    'controller' => 'LotteryController',
+                    'action' => 'index',
+                    'children' => [],
+                ],
+            7 =>
+                [
+                    'id' => 23,
+                    'name' => '数据集',
+                    'description' => '抽奖数据',
+                    'parent_id' => 21,
+                    'class' => 'fa-firefox',
+                    'namespace' => 'App\\Http\\Controllers\\Admin',
+                    'controller' => 'LottoController',
+                    'action' => 'index',
+                    'children' => [],
                 ],
         ];
     }

@@ -30,6 +30,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'permissionCheck'], functi
     Route::resource('permissions', 'PermissionController', ['except' => 'show']);
     Route::resource('lottery', 'LotteryController', ['except' => 'show']);
     Route::resource('lotto', 'LottoController', ['except' => 'show']);
+    Route::resource('award', 'AwardController', ['except' => ['show', 'index']]);
+
     Route::get('/roles/{role}/permission', 'RoleController@permission');
     Route::post('/roles/{role}/permission', 'RoleController@storePermission');
     Route::get('/users/{user}/role', 'UserController@role');
@@ -41,4 +43,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'permissionCheck'], functi
     Route::get('/lotto/{lotto}/data', 'LottoController@data');
     Route::get('/lotto/{lotto}/import', 'LottoController@import');
     Route::post('/lotto/{lotto}/import', 'LottoController@storeImport');
+
+    Route::delete('/data/{lotto}', 'DataController@destory')->name('data.destory');
 });

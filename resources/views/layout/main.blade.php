@@ -68,7 +68,7 @@
 <!-- ChartJS 1.0.1 -->
 <script src="/adminlte/plugins/chartjs/Chart.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="/adminlte/dist/js/pages/dashboard2.js"></script>
+<!--<script src="/adminlte/dist/js/pages/dashboard2.js"></script>-->
 <!-- AdminLTE for demo purposes -->
 <script src="/adminlte/dist/js/demo.js"></script>
 <script src="/js/admin.js"></script>

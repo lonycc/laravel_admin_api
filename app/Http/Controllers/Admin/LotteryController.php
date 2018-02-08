@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lottery;
 use App\Models\Lotto;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Session;  
 
 class LotteryController extends Controller
 {
@@ -27,7 +28,7 @@ class LotteryController extends Controller
     public function store()
     {
         $this->validate(request(),[
-            'name'  => 'required|string|min:3|max:50unique:lottery',
+            'name'  => 'required|string|min:3|max:50|unique:lottery',
             'info'  => 'max:50'
         ]);
 
@@ -83,12 +84,19 @@ class LotteryController extends Controller
     public function destroy(Lottery $lottery)
     {
         $lottery->delete();
-        // 还要把绑定的奖项删掉
-
         return [
             'error' => 0,
             'msg'   => ''
         ];
+    }
+
+    // 奖项列表
+    public function award(Lottery $lottery)
+    {
+        $awards = $lottery->award;
+        Session::put('lottery_id', $lottery->id);
+        Session::put('lottery_name', $lottery->name);
+        return view('award.index', compact('lottery', 'awards'));
     }
 
 }

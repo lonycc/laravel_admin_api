@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdminPermission;
 use App\Models\AdminRole;
-use App\Models\User;
+use App\Models\AdminUser;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::paginate(10);
+        $users = AdminUser::paginate(10);
         return view('user.index', compact('users'));
     }
 
@@ -33,24 +33,24 @@ class UserController extends Controller
         $name = request('name');
         $password = bcrypt(request('password'));
         $email = request('email');
-        User::create(compact('name','password','email'));
+        AdminUser::create(compact('name','password','email'));
         return redirect('/users');
     }
 
-    public function edit(User $user)
+    public function edit(AdminUser $user)
     {
         return view('user.edit', compact('user'));
     }
 
-    public function update(User $user)
+    public function update(AdminUser $user)
     {
         $this->validate(request(), [
             'name' => [
-                                'string',
-                                'min:3',
-                                'max:10',
-                                Rule::unique('users')->ignore($user->id)
-                            ],
+                        'string',
+                        'min:3',
+                        'max:10',
+                        Rule::unique('users')->ignore($user->id)
+                    ],
             'email' => 'email'
         ]);
         $user->name     = request('name');
@@ -65,14 +65,14 @@ class UserController extends Controller
         return redirect('/users');
     }
 
-    public function role(User $user)
+    public function role(AdminUser $user)
     {
         $roles = AdminRole::all();
         $myRoles = $user->roles;
         return view('user.role',compact('user','roles','myRoles'));
     }
 
-    public function storeRole(User $user)
+    public function storeRole(AdminUser $user)
     {
         $this->validate(request(),[
             'roles' =>'array'
@@ -95,7 +95,7 @@ class UserController extends Controller
     }
 
 
-    public function destroy(User $user)
+    public function destroy(AdminUser $user)
     {
         $roles = $user->roles;
         foreach($roles as $role){

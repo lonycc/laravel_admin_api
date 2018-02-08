@@ -11,12 +11,15 @@ class Lotto extends Model
     protected $fillable = ['name', 'info'];
     public $timestamps = false;
 
-    public function datas()
+    public function lottodata()
     {
-        return $this->hasMany(LottoData::class)->orderBy('id', 'asc');
+        return $this->hasMany('App\Models\LottoData', 'lotto_id')->orderBy('id', 'asc');
     }
 
-
+    public function lottery()
+    {
+        return $this->belongsTo('App\Models\Lottery');
+    }
 
 
 }
