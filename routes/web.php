@@ -21,13 +21,17 @@ Route::group(['namespace' => 'Admin'], function() {
     Route::post('/login', 'LoginController@login');
     Route::get('/logout', 'LoginController@logout');
     Route::get('/captcha', 'LoginController@captcha');
+    Route::get('/data/export', 'DataController@export')->name('data.export');
+    Route::get('/data/import', 'DataController@import')->name('data.import');
 });
 
 Route::group(['namespace' => 'Admin', 'middleware' => 'permissionCheck'], function() {
     Route::get('/home', 'HomeController@index');
+
     Route::resource('users', 'UserController', ['except' => 'show']);
     Route::resource('roles', 'RoleController', ['except' => 'show']);
     Route::resource('permissions', 'PermissionController', ['except' => 'show']);
+
     Route::resource('lottery', 'LotteryController', ['except' => 'show']);
     Route::resource('lotto', 'LottoController', ['except' => 'show']);
     Route::resource('award', 'AwardController', ['except' => ['show', 'index']]);

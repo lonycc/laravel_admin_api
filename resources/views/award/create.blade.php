@@ -18,8 +18,13 @@
                         {{csrf_field()}}
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="lottery_name">所属项目</label>
-                                <input type="text" class="form-control" name="lottery_name" value="{{Session::get('lottery_name')}}" disabled />
+                                <label for="lottery_id">所属项目</label>
+                                <select class="form-control" name="lottery_id">
+                                    <option value="">请选择所属项目</option>
+                                    @foreach($lotterys as $lottery)
+                                    <option value="{{$lottery->id}}">{{$lottery->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>                        
                         <div class="box-body">
@@ -43,7 +48,7 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="rank">抽奖顺序</label>
-                                <input type="number" class="form-control" name="rank" />
+                                <input type="number" class="form-control" name="rank" value="0" />
                             </div>
                         </div>
                         <!-- /.box-body -->

@@ -18,9 +18,12 @@ class LottoData extends Model
     protected $guarded = ['id'];
     protected $fillable = ['main', 'other', 'lotto_id'];
 
+    /**
+     * 所属的lotto
+     */
     public function lotto()
     {
-        return $this->belongsTo('App\Models\Lotto');
+        return $this->belongsTo('App\Models\Lotto', 'lotto_id', 'id');
     }
 
 

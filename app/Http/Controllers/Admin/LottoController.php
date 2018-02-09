@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Lotto;
 use App\Models\LottoData;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class LottoController extends Controller
 {
@@ -33,7 +35,8 @@ class LottoController extends Controller
 
         $name = request('name');
         $info = request('info');
-        Lotto::create(compact('name', 'info'));
+        $create_user = Auth::id();
+        Lotto::create(compact('name', 'info', 'create_user'));
         return redirect('/lotto');
     }
 
@@ -52,11 +55,12 @@ class LottoController extends Controller
                 'min:3',
                 'max:50',
                 Rule::unique('lotto')->ignore($lotto->id)
-                ],
+            ],
             'info' => 'max:50'
         ]);
-        $lotto->name  = request('name');
-        $lotto->info     = request('info');
+        $lotto->name = request('name');
+        $lotto->info = request('info');
+        $lotto->create_user = Auth::id();
         $lotto->save();
         return redirect('/lotto');
     }
@@ -64,9 +68,9 @@ class LottoController extends Controller
     // 删除项目
     public function destroy(Lotto $lotto)
     {
+        $lotto->datas()->delete();
         $lotto->delete();
-        // 还要把绑定的数据删掉
-
+        
         return [
             'error' => 0,
             'msg'   => '删除成功'
@@ -76,7 +80,7 @@ class LottoController extends Controller
     // 关联数据列表
     public function data(Lotto $lotto)
     {
-        $datas = LottoData::where('lotto_id', $lotto->id)->paginate(20);
+        $datas = $lotto->datas()->paginate(2);
         return view('lotto.data', compact('lotto', 'datas'));
     }
 
@@ -91,27 +95,41 @@ class LottoController extends Controller
     {
         $file = $request->xls;
         $msg = '未选择文件';
+        // $file->isValid(); 也可判断是否选择文件
         if ( $request->hasFile('xls') )
         {
-            $path = $file->path();
-            $ext = $file->extension();
-            $size = $file->getClientSize();
+            //$path = $file->path(); //临时路径
+            $ext = $file->extension();  //真实扩展名, 就算改了也能识别
+            //$ext = $file->getClientOriginalExtension();  //根据文件名获得的扩展名, 可能被窜改
+            $realPath = $file->getRealPath();  //临时路径
+            $originalName = $file->getClientOriginalName();
+            //$mimetype = $file->getClientMimeType(); //mimetype, 根据文件名后缀判断, 不准       
+            $size = $file->getClientSize(); //单位字节
+            $filename = uniqid() . '.' . $ext;  //重命名文件
+            //$bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath)); //指定驱动
+
+
             if ( $size > 1024 * 1024 * 5 )
             {
                 $msg = '文件不能超过5MB';
-            } else if ( ! in_array($ext, ['xls', 'xlsx', 'csv', 'html'], true) ) {
+            } else if ( ! in_array($ext, ['xls', 'xlsx', 'csv', 'txt'], true) ) {
                 $msg = '文件类型不是excel';
             } else {
                 $msg = '';
             }
             if ( $msg != '' )
             {
-                return back()->withErrors($msg);
+                return back()->withErrors($msg)->withInput();
             }
-            return $new_path = $file->store('uploads');
+            
+            // $file->store('uploads'); 文件保存到storage/app/uploads路径下, 文件名是随机的
+            // $file->storeAs('uploads', 'filename', 'public');  文件保存到public/uploads路径下, 文件名为filename
+
         } else {
             return back()->withErrors($msg);
         }
+        // return redirect('/lotto')->with('message', '上传成功');
+        // return back()->with('errors', '上传成功')->withInput();
     }
 
 }

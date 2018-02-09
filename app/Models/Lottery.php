@@ -8,20 +8,22 @@ class Lottery extends Model
 {
     protected $table = 'lottery';
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'info', 'lotto_id'];
+    protected $fillable = ['name', 'info', 'lotto_id', 'create_user', 'update_user'];
 
     /**
-     * 获得与项目关联的数据集
+     * 关联的数据集
      */
     public function lotto()
     {
-        return $this->hasOne('App\Models\Lotto', 'lotto_id');
+        return $this->belongsTo('App\Models\Lotto', 'lotto_id', 'id');
     }
 
-    // 查找项目所有关联奖项
-    public function award()
+    /**
+     * 查找项目所有关联奖项
+     */
+    public function awards()
     {
-        return $this->hasMany('App\Models\Award', 'lottery_id');
+        return $this->hasMany('App\Models\Award', 'lottery_id', 'id');
     }
 
 }

@@ -10,10 +10,12 @@ class Award extends Model
     protected $guarded = ['id'];
     protected $fillable = ['name', 'info', 'rank', 'score', 'lottery_id'];
 
-    // 查找奖项所属项目
+    /** 
+     * 查找奖项所属项目
+     */
     public function lottery()
     {
-        return $this->belongsTo('App\Models\Lottery');
+        return $this->belongsTo('App\Models\Lottery', 'lottery_id', 'id');
     }
 
 }

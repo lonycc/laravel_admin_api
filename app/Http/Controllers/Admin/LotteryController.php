@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lottery;
 use App\Models\Lotto;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Session;  
+use Illuminate\Support\Facades\Auth;
 
 class LotteryController extends Controller
 {
@@ -34,7 +34,8 @@ class LotteryController extends Controller
 
         $name = request('name');
         $info = request('info');
-        Lottery::create(compact('name','info'));
+        $create_user = Auth::id();
+        Lottery::create(compact('name','info', 'create_user'));
         return redirect('/lottery');
     }
 
@@ -49,15 +50,16 @@ class LotteryController extends Controller
     {
         $this->validate(request(), [
             'name' => [
-                                'string',
-                                'min:3',
-                                'max:50',
-                                Rule::unique('lottery')->ignore($lottery->id)
-                            ],
+                'string',
+                'min:3',
+                'max:50',
+                Rule::unique('lottery')->ignore($lottery->id)
+            ],
             'info' => 'max:50'
         ]);
-        $lottery->name  = request('name');
-        $lottery->info     = request('info');
+        $lottery->name = request('name');
+        $lottery->info = request('info');
+        $lottery->update_user = Auth::id();
         $lottery->save();
         return redirect('/lottery');
     }
@@ -83,19 +85,18 @@ class LotteryController extends Controller
     // 删除项目
     public function destroy(Lottery $lottery)
     {
+        $lottery->awards()->delete();
         $lottery->delete();
         return [
             'error' => 0,
-            'msg'   => ''
+            'msg'   => 'success'
         ];
     }
 
     // 奖项列表
     public function award(Lottery $lottery)
     {
-        $awards = $lottery->award;
-        Session::put('lottery_id', $lottery->id);
-        Session::put('lottery_name', $lottery->name);
+        $awards = $lottery->awards;
         return view('award.index', compact('lottery', 'awards'));
     }
 
