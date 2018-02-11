@@ -8,7 +8,8 @@ use App\Models\Lotto;
 use App\Models\LottoData;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+// use Illuminate\Support\Facades\Storage;
+use Excel;
 
 class LottoController extends Controller
 {
@@ -95,19 +96,18 @@ class LottoController extends Controller
     {
         $file = $request->xls;
         $msg = '未选择文件';
-        // $file->isValid(); 也可判断是否选择文件
-        if ( $request->hasFile('xls') )
+        // $request->hasFile('xls'); 也可判断
+        if ( $file->isValid() )
         {
             //$path = $file->path(); //临时路径
-            $ext = $file->extension();  //真实扩展名, 就算改了也能识别
-            //$ext = $file->getClientOriginalExtension();  //根据文件名获得的扩展名, 可能被窜改
+            //$ext = $file->extension();  //真实扩展名, 就算改了也能识别
+            $ext = $file->getClientOriginalExtension();  //根据文件名获得的扩展名, 可能被窜改
             $realPath = $file->getRealPath();  //临时路径
             $originalName = $file->getClientOriginalName();
             //$mimetype = $file->getClientMimeType(); //mimetype, 根据文件名后缀判断, 不准       
             $size = $file->getClientSize(); //单位字节
             $filename = uniqid() . '.' . $ext;  //重命名文件
             //$bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath)); //指定驱动
-
 
             if ( $size > 1024 * 1024 * 5 )
             {
@@ -121,9 +121,32 @@ class LottoController extends Controller
             {
                 return back()->withErrors($msg)->withInput();
             }
-            
+            $start = $request->start; //开始行
+            $mainColumn = $request->main;  //抽奖列
+
             // $file->store('uploads'); 文件保存到storage/app/uploads路径下, 文件名是随机的
             // $file->storeAs('uploads', 'filename', 'public');  文件保存到public/uploads路径下, 文件名为filename
+            $path = storage_path('app/') . $file->storeAs('uploads', $filename);
+            Excel::load($path, function($reader) {
+                // $reader->all();
+                // $reader->getSheet(0); //excel第一张sheet
+                // $reader->takeRows(5);
+                // $reader->skipColumns(1);
+                $results = $reader->limitRows(5);
+                dd($reader);
+                /*
+                if ( $results ) {
+                    foreach ($results as $key => $value ) {
+                        $data = [];
+                        $data['main'] = $value[0];
+                        $data['other'] = $value[1];
+                        $data['lotto_id'] = $lotto->id;
+                    }
+                }
+                */
+                
+            });
+            
 
         } else {
             return back()->withErrors($msg);

@@ -21,19 +21,33 @@ class DataController extends Controller
             ['10004','DDDDD','89'],
             ['10005','EEEEE','96'],
         ];
-        Excel::create('demo', function ($excel) use ($cellData) {
-            $excel->sheet('score', function ($sheet) use ($cellData) {
-                $sheet->rows($cellData);
+        Excel::create('demo.xls', function ($excel) use ($cellData) {
+            $excel->sheet('sheet1', function ($sheet) use ($cellData) {
+                $sheet->rows($cellData); //填充整行
+                
+                /* 填充每个单元格
+                $sheet->cell('A1', function($cell) use ($test) {
+                    $cell->setValue($test);
+                });
+                */
             });
+            
         })->export('xls');
     }
 
+    // 导入excel
     public function import()
     {
-        $file = iconv('UTF-8', 'GBK', '帐号demo') . '.xls';
+        $file = iconv('UTF-8', 'GBK', 'demo') . '.xls';
         Excel::load($file, function($reader) {
             $data = $reader->all();
-            dd($data);
+            dd($data); // laravel自带的格式化输出方法
+
+            /* 修改每个单元格的内容
+            $reader->cell('A1', function($cell) {
+                $cell->setValue('test');
+            });
+            */
         });
     }
 }
