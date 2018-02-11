@@ -92,11 +92,11 @@ class LottoController extends Controller
     }
 
     // 导入操作
-    public function storeImport(Lotto $lotto, Request $request)
+    public function storeImport(Lotto $lotto)
     {
-        $file = $request->xls;
+        $file = request()->xls;
         $msg = '未选择文件';
-        // $request->hasFile('xls'); 也可判断
+        // request()->hasFile('xls'); 也可判断
         if ( $file->isValid() )
         {
             //$path = $file->path(); //临时路径
@@ -121,33 +121,49 @@ class LottoController extends Controller
             {
                 return back()->withErrors($msg)->withInput();
             }
-            $start = $request->start; //开始行
-            $mainColumn = $request->main;  //抽奖列
 
             // $file->store('uploads'); 文件保存到storage/app/uploads路径下, 文件名是随机的
             // $file->storeAs('uploads', 'filename', 'public');  文件保存到public/uploads路径下, 文件名为filename
             $path = storage_path('app/') . $file->storeAs('uploads', $filename);
-            Excel::load($path, function($reader) {
+            $results = [];
+            $succeed = 0;
+            $failed = 0;
+            Excel::load($path, function($reader) use($results, $lotto, $succeed, $failed) {
                 // $reader->all();
-                // $reader->getSheet(0); //excel第一张sheet
-                // $reader->takeRows(5);
-                // $reader->skipColumns(1);
-                $results = $reader->limitRows(5);
-                dd($reader);
-                /*
+                // $reader->get();
+                // $reader->getTitle();
+                $start = request()->start; //开始行
+                $mainColumn = request()->main;  //抽奖列
+
+                $reader = $reader->getSheet(0);
+                $results = $reader->toArray();
+                unset($results[0]);
+                $rows = count($results);
                 if ( $results ) {
+                    
                     foreach ($results as $key => $value ) {
+                        $columns = count($value);
                         $data = [];
-                        $data['main'] = $value[0];
-                        $data['other'] = $value[1];
-                        $data['lotto_id'] = $lotto->id;
+                        if ( $columns < $mainColumn || $mainColumn < 0 )
+                        {
+                            break;
+                        } else {
+                            $data['main'] = $value[$mainColumn-1];
+                            unset($value[$mainColumn-1]);
+                            $data['other'] = implode(" |-| ", $value);
+                            $data['lotto_id'] = $lotto->id;
+                            try {
+                                LottoData::create($data);
+                                $succeed++;
+                            } catch (Exception $e) {
+                                $failed++;
+                            }
+                        }
                     }
                 }
-                */
-                
             });
-            
-
+            return $results;
+            //return back()->withErrors("导入成功{$succeed}条, 导入失败{$failed}条");
         } else {
             return back()->withErrors($msg);
         }
