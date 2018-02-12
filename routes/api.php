@@ -25,6 +25,12 @@ $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\Api\V1\Controllers', 'middleware' => 'jwt.api.auth'], function ($api) {
         $api->post('/auth/signup', 'AuthController@postSignup');
         $api->post('/auth/login', 'AuthController@postLogin');
+
+        $api->get('/lotterys', 'LotteryController@index');
+        $api->get('/lottery/{id}', 'LotteryController@show');
+        $api->get('/lottery/{id}/data', 'LotteryController@datas');
+        $api->get('/lottery/{id}/award', 'LotteryController@awards');
+
         $api->group(['middleware' => 'jwt.auth'], function ($api) {
             $api->get('/users', 'TestController@index');
             $api->get('/user/{id}', 'TestController@show');

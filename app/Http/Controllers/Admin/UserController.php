@@ -104,7 +104,7 @@ class UserController extends Controller
         $user->delete();
         return [
             'error' => 0,
-            'msg'   => ''
+            'msg'   => 'success'
         ];
     }
 }

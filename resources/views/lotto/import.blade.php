@@ -24,7 +24,7 @@
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="start">从第几行开始</label>
+                                <label for="start">从第几行开始[默认去表头]</label>
                                 <input type="number" class="form-control" name="start" value="2" required disabled />
                             </div>
                         </div>

@@ -50,4 +50,14 @@ class DataController extends Controller
             */
         });
     }
+
+    public function destory(Lotto $lotto)
+    {
+        $datas = $lotto->datas();
+        $datas->delete();
+        return [
+            'error' => 0,
+            'msg'   => 'success'
+        ];
+    }
 }

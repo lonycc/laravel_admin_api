@@ -74,14 +74,14 @@ class LottoController extends Controller
         
         return [
             'error' => 0,
-            'msg'   => '删除成功'
+            'msg'   => 'success'
         ];
     }
 
     // 关联数据列表
     public function data(Lotto $lotto)
     {
-        $datas = $lotto->datas()->paginate(2);
+        $datas = $lotto->datas()->paginate(20);
         return view('lotto.data', compact('lotto', 'datas'));
     }
 
@@ -126,9 +126,8 @@ class LottoController extends Controller
             // $file->storeAs('uploads', 'filename', 'public');  文件保存到public/uploads路径下, 文件名为filename
             $path = storage_path('app/') . $file->storeAs('uploads', $filename);
             $results = [];
-            $succeed = 0;
-            $failed = 0;
-            Excel::load($path, function($reader) use($results, $lotto, $succeed, $failed) {
+
+            Excel::load($path, function($reader) use($results, $lotto) {
                 // $reader->all();
                 // $reader->get();
                 // $reader->getTitle();
@@ -139,6 +138,7 @@ class LottoController extends Controller
                 $results = $reader->toArray();
                 unset($results[0]);
                 $rows = count($results);
+                $success = $fail = 0;
                 if ( $results ) {
                     
                     foreach ($results as $key => $value ) {
@@ -154,16 +154,18 @@ class LottoController extends Controller
                             $data['lotto_id'] = $lotto->id;
                             try {
                                 LottoData::create($data);
-                                $succeed++;
+                                $success++;
                             } catch (Exception $e) {
-                                $failed++;
+                                $fail++;
                             }
                         }
                     }
                 }
+                return $success;
+                
             });
-            return $results;
-            //return back()->withErrors("导入成功{$succeed}条, 导入失败{$failed}条");
+            
+            //return back()->withErrors("导入成功条, 导入失败条");
         } else {
             return back()->withErrors($msg);
         }

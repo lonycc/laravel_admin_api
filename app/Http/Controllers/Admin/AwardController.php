@@ -28,7 +28,6 @@ class AwardController extends Controller
             'rank'  => 'integer',
             'lottery_id' => 'integer'
         ], ['lottery_id.integer'=>'项目必选']);
-
         $name = request('name');
         $info = request('info');
         $score = request('score');
@@ -75,7 +74,7 @@ class AwardController extends Controller
         $award->delete();
         return [
             'error' => 0,
-            'msg'   => ''
+            'msg'   => 'success'
         ];
     }
 }

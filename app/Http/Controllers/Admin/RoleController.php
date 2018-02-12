@@ -96,7 +96,7 @@ class RoleController extends Controller
         $role->delete();
         return [
             'error' => 0,
-            'msg'   => ''
+            'msg'   => 'success'
         ];
     }
 }

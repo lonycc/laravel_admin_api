@@ -21,8 +21,6 @@ Route::group(['namespace' => 'Admin'], function() {
     Route::post('/login', 'LoginController@login');
     Route::get('/logout', 'LoginController@logout');
     Route::get('/captcha', 'LoginController@captcha');
-    Route::get('/data/export', 'DataController@export')->name('data.export');
-    Route::get('/data/import', 'DataController@import')->name('data.import');
 });
 
 Route::group(['namespace' => 'Admin', 'middleware' => 'permissionCheck'], function() {
