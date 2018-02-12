@@ -109,9 +109,9 @@ class LottoController extends Controller
             $filename = uniqid() . '.' . $ext;  //重命名文件
             //$bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath)); //指定驱动
 
-            if ( $size > 1024 * 1024 * 5 )
+            if ( $size > 1024 * 1024 * 2 )
             {
-                $msg = '文件不能超过5MB';
+                $msg = '文件不能超过2MB';
             } else if ( ! in_array($ext, ['xls', 'xlsx', 'csv', 'txt'], true) ) {
                 $msg = '文件类型不是excel';
             } else {
@@ -126,21 +126,19 @@ class LottoController extends Controller
             // $file->storeAs('uploads', 'filename', 'public');  文件保存到public/uploads路径下, 文件名为filename
             $path = storage_path('app/') . $file->storeAs('uploads', $filename);
             $results = [];
-
-            Excel::load($path, function($reader) use($results, $lotto) {
+            $success = $fail = 0;
+            Excel::load($path, function($reader) use($results, $lotto, &$success, &$fail) {
                 // $reader->all();
                 // $reader->get();
                 // $reader->getTitle();
                 $start = request()->start; //开始行
                 $mainColumn = request()->main;  //抽奖列
-
                 $reader = $reader->getSheet(0);
                 $results = $reader->toArray();
                 unset($results[0]);
                 $rows = count($results);
-                $success = $fail = 0;
+                
                 if ( $results ) {
-                    
                     foreach ($results as $key => $value ) {
                         $columns = count($value);
                         $data = [];
@@ -160,12 +158,11 @@ class LottoController extends Controller
                             }
                         }
                     }
-                }
-                return $success;
-                
+                } 
             });
-            
-            //return back()->withErrors("导入成功条, 导入失败条");
+            unlink($path);
+
+            return back()->withErrors("导入成功{$success}条, 导入失败{$fail}条");
         } else {
             return back()->withErrors($msg);
         }
