@@ -29,7 +29,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'permissionCheck'], functi
     Route::resource('users', 'UserController', ['except' => 'show']);
     Route::resource('roles', 'RoleController', ['except' => 'show']);
     Route::resource('permissions', 'PermissionController', ['except' => 'show']);
-
+    Route::resource('client', 'ClientController', ['except' => 'show']);
     Route::resource('lottery', 'LotteryController', ['except' => 'show']);
     Route::resource('lotto', 'LottoController', ['except' => 'show']);
     Route::resource('award', 'AwardController', ['except' => ['show', 'index']]);

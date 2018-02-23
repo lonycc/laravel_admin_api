@@ -46,15 +46,15 @@ class UserController extends Controller
     {
         $this->validate(request(), [
             'name' => [
-                        'string',
-                        'min:3',
-                        'max:10',
-                        Rule::unique('users')->ignore($user->id)
-                    ],
+                'string',
+                'min:3',
+                'max:10',
+                Rule::unique('users')->ignore($user->id)
+            ],
             'email' => 'email'
         ]);
-        $user->name     = request('name');
-        $user->email    = request('email');
+        $user->name = request('name');
+        $user->email = request('email');
         if ( request('password') ) {
             $this->validate(request(), [
                 'password'  => 'min:5|max:10'

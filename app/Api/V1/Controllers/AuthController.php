@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exception\HttpResponseException;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 
 class AuthController extends BaseController
@@ -48,7 +49,7 @@ class AuthController extends BaseController
         $user = User::create($newUser);
         $token = JWTAuth::fromUser($user);
         return response()->json(['code' => 200, 'token' => $token], 200);
-    }    
+    }
     
     /**
      * 用户登录
