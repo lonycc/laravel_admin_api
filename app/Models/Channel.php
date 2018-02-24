@@ -14,4 +14,10 @@ class Channel extends Model
     {
         return $this->hasMany('App\Models\News', 'channel_id', 'id');
     }
+
+    public function parent()
+    {
+        return $this->hasOne(get_class($this), $this->getKeyName(), 'pid');
+    }
+
 }

@@ -48,7 +48,23 @@
                                 <label for="content">正文内容</label>
                                 <textarea id="content" style="height:400px;max-height:500px;" name="content" class="form-control" placeholder="正文内容"></textarea>
                             </div>
-                        </div>                                      
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="hot">设为热门</label>
+                                <input type="radio" name="hot" value="1" /><label>是</label>
+                                <input type="radio" name="hot" value="0" checked /><label>否</label>
+                            </div>
+                        </div>
+    
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="status">状态</label>
+                                <input type="radio" name="status" value="1" checked /><label>正常</label>
+                                <input type="radio" name="status" value="0" /><label>过期</label>
+                            </div>
+                        </div>
+
                         <!-- /.box-body -->
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">提交</button>

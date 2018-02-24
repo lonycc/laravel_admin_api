@@ -7,7 +7,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">数据集列表</h3>
                     </div>
-                    <a type="button" class="btn " href="/lotto/create" >添加数据集</a>
+                    <a type="button" class="btn" href="/lotto/create">添加数据集</a>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">

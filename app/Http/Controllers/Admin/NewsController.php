@@ -13,7 +13,7 @@ class NewsController extends Controller
     // 稿件列表
     public function index()
     {
-        $news = News::paginate(10);
+        $news = News::paginate(20);
         return view('news.index', compact('news'));
     }
 
@@ -30,6 +30,8 @@ class NewsController extends Controller
             'title'  => 'required|string|min:3|max:100',
             'keywords' => 'max:50',
             'channel_id' => 'required|integer',
+            'hot' => 'required|integer',
+            'status' => 'required|integer',
         ]);
 
         $news = [
@@ -39,6 +41,8 @@ class NewsController extends Controller
             'keywords' => request('keywords'),
             'channel_id' => request('channel_id'),
             'content' => request('content'),
+            'status' => request('status'),
+            'hot' => request('hot'),
         ];
         News::create($news);
         return redirect('/news');
@@ -58,12 +62,16 @@ class NewsController extends Controller
             'title'  => 'required|string|min:3|max:100',
             'keywords' => 'max:50',
             'channel_id' => 'required|integer',
+            'hot' => 'required|integer',
+            'status' => 'required|integer',
         ]);
         $news->title = request('title');
         $news->keywords = request('keywords');
         $news->update_user = Auth::id();
         $news->channel_id = request('channel_id');
         $news->content = request('content');
+        $news->hot = request('hot');
+        $news->status = request('status');
         $news->save();
         return redirect('/news');
     }
@@ -76,6 +84,13 @@ class NewsController extends Controller
             'error' => 0,
             'msg'   => 'success'
         ];
+    }
+
+    // 单条展示
+    public function show(News $news)
+    {
+        $chanel = $news->channel;
+        return view('news.show', compact('news', 'channel'));
     }
 
 }

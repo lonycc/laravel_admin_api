@@ -5,9 +5,8 @@
             <div class="col-md-10">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">稿件列表</h3>
+                        <h3 class="box-title">[{{$channel->name}}] 栏目稿件列表</h3>
                     </div>
-                    <a type="button" class="btn" href="/news/create">添加稿件</a>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">
@@ -23,7 +22,7 @@
                             @foreach($news as $article)
                                 <tr>
                                     <td>{{$article->id}}.</td>
-                                    <td>[<a href="/channel/{{$article->channel_id}}/news" title="所属栏目">{{$article->channel->name}}</a>]  <a href="/news/{{$article->id}}">{{$article->title}}<a></td>
+                                    <td><a href="/news/{{$article->id}}">{{$article->title}}<a></td>
                                     <td>{{$article->hits}}</td>
                                     <td>@if($article->hot == 1) 是 @else 否 @endif</td>
                                     <td>@if($article->status == 1) 正常 @else 过期 @endif</td>

@@ -7,7 +7,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">用户列表</h3>
                     </div>
-                    <a type="button" class="btn " href="/client/create" >添加用户</a>
+                    <a type="button" class="btn" href="/client/create">添加用户</a>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">

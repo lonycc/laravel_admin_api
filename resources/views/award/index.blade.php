@@ -7,7 +7,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">奖项列表</h3>
                     </div>
-                    <a type="button" class="btn " href="/award/create" >添加奖项</a>
+                    <a type="button" class="btn" href="/award/create">添加奖项</a>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">
