@@ -43,7 +43,7 @@ class ClientController extends Controller
             'check_ip' => request('check_ip'),
             'ip' => request('ip'),
         ];
-        client::create($newClient);
+        Client::create($newClient);
         return redirect('/client');
     }
 

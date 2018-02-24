@@ -175,6 +175,7 @@ return [
         Mews\Purifier\PurifierServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
         /*
@@ -247,6 +248,7 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Ip'  => Zhuzhichao\IpLocationZh\Ip::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

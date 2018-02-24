@@ -8,7 +8,7 @@ class Channel extends Model
 {
     protected $table = 'channel';
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'update_user', 'create_user'];
+    protected $fillable = ['name', 'pid', 'update_user', 'create_user'];
 
     public function news()
     {

@@ -15,6 +15,7 @@ class CreateChannelTable extends Migration
     {
         Schema::create('channel', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('pid')->nullable()->default(0);
             $table->integer('create_user');
             $table->integer('update_user')->nullable();
             $table->string('name', 10);

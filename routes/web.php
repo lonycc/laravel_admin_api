@@ -33,6 +33,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'permissionCheck'], functi
     Route::resource('lottery', 'LotteryController', ['except' => 'show']);
     Route::resource('lotto', 'LottoController', ['except' => 'show']);
     Route::resource('award', 'AwardController', ['except' => ['show', 'index']]);
+    Route::resource('news', 'NewsController');
 
     Route::get('/roles/{role}/permission', 'RoleController@permission');
     Route::post('/roles/{role}/permission', 'RoleController@storePermission');

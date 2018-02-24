@@ -10,47 +10,45 @@
                 <!-- /.box-header -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">添加奖项</h3>
+                        <h3 class="box-title">添加稿件</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="/award" method="POST">
+                    <form role="form" action="/news" method="POST">
                         {{csrf_field()}}
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="lottery_id">所属项目</label>
-                                <select class="form-control" name="lottery_id">
-                                    <option value="">请选择所属项目</option>
-                                    @foreach($lotterys as $lottery)
-                                    <option value="{{$lottery->id}}">{{$lottery->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>                        
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label for="name">奖项名</label>
-                                <input type="text" class="form-control" name="name" />
+                                <label for="title">标题</label>
+                                <input type="text" class="form-control" name="title" placeholder="请输入标题" />
                             </div>
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="info">描述</label>
-                                <input type="text" class="form-control" name="info" />
+                                <label for="keywords">关键词</label>
+                                <input type="text" class="form-control" name="keywords" placeholder="关键词, 多个用逗号分开" />
                             </div>
                         </div>
+                        
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="score">中奖数</label>
-                                <input type="number" class="form-control" name="score" />
+                                <div class="select">
+                                    <label for="channel_id">所属栏目</label>
+                                    <select name="channel_id" class="form-control">
+                                        <option value="">请选择栏目</option>
+                                        @foreach($channels as $channel)
+                                        <option value="{{$channel->id}}">{{$channel->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
+
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="rank">抽奖顺序</label>
-                                <input type="number" class="form-control" name="rank" value="0" />
+                                <label for="content">正文内容</label>
+                                <textarea id="content" style="height:400px;max-height:500px;" name="content" class="form-control" placeholder="正文内容"></textarea>
                             </div>
-                        </div>
+                        </div>                                      
                         <!-- /.box-body -->
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">提交</button>
