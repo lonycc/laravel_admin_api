@@ -27,7 +27,7 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-right">
-                                <a href="/logout" class="btn btn-default btn-flat">注销</a>
+                                <a href="{{route('admin.logout')}}" class="btn btn-default btn-flat">注销</a>
                             </div>
                         </li>
                     </ul>

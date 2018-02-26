@@ -38,17 +38,18 @@ class PermissionCheck
 
             if ( !$this->checkPermission($currentAction, $actions) ) {
                 \Session::flash('msg', '对不起,你没有权限访问该资源');
-                return redirect(route('admin.login'));
+                return redirect(route('admin.home'));
             }
-
         }
+
         \View::composer('layout.sidebar', function($view) use ($actions) {
             $view->with('actions', $actions);
         });
         return $next($request);
     }
 
-    public function buildTree($actions ,$parent_id = 0){
+    public function buildTree($actions, $parent_id = 0)
+    {
         $returnValue = array();
         foreach ( $actions as $action ) {
             if ( $action->parent_id == $parent_id ) {

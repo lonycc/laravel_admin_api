@@ -19,7 +19,7 @@
 
                     {{$news->hits}}
 
-                    {{$news->content}}
+                    {!! $news->content !!}
 
                     {{$news->keywords}}
                 </div>

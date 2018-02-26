@@ -16,7 +16,11 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-
+                    @if (Session::has('msg'))
+                    <div class="alert alert-danger">
+                        <ul><li>{{ Session::get('msg') }}</li></ul>
+                    </div>
+                    @endif
                 </div>
                 <!-- ./box-body -->
                 <div class="box-footer">
