@@ -22,7 +22,7 @@
                             @foreach($news as $article)
                                 <tr>
                                     <td>{{$article->id}}.</td>
-                                    <td><a href="/news/{{$article->id}}">{{$article->title}}<a></td>
+                                    <td><a href="{{route('news.show', ['new'=>$article->id])}}">{{$article->title}}<a></td>
                                     <td>{{$article->hits}}</td>
                                     <td>@if($article->hot == 1) 是 @else 否 @endif</td>
                                     <td>@if($article->status == 1) 正常 @else 过期 @endif</td>
