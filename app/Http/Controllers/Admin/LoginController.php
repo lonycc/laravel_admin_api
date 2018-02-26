@@ -27,9 +27,8 @@ class LoginController extends Controller
         $is_remember = boolval(request('is_remember'));
         if ( Auth::attempt($user, $is_remember) )
         {
-            //session(['loginuser'=>request('name')]);
             //return request()->ip();
-            return redirect('/home');
+            return redirect(route('admin.home'));
         } else {
             return Redirect::back()->withErrors('账号密码不匹配');
         }
@@ -38,7 +37,7 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/login');
+        return redirect(route('admin.login'));
     }
 
     public function captcha()

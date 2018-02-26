@@ -38,7 +38,7 @@ class ChannelController extends Controller
             'pid' => request('pid'),
         ];
         Channel::create($channel);
-        return redirect('/channel');
+        return redirect(route('channels.index'));
     }
 
     // 编辑栏目
@@ -59,14 +59,14 @@ class ChannelController extends Controller
         $channel->pid = request('pid');
         $channel->name = request('name');
         $channel->save();
-        return redirect('/channel');
+        return redirect(route('channels.index'));
     }
 
     // 删除栏目
     public function destroy(Channel $channel)
     {
-        $news = $channel->news;
-        if ( $news != null )
+        $news = $channel->news()->count();
+        if ( $news != 0 )
         {
             return [
                 'error' => '1',

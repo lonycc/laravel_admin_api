@@ -19,7 +19,7 @@ class PermissionCheck
 
         if ( ! Auth::check() ) {
             \Session::flash('msg', '请先登录');
-            return redirect('/login');
+            return redirect(route('admin.login'));
         }
 
         $user = Auth::user();
@@ -38,7 +38,7 @@ class PermissionCheck
 
             if ( !$this->checkPermission($currentAction, $actions) ) {
                 \Session::flash('msg', '对不起,你没有权限访问该资源');
-                return redirect('login');
+                return redirect(route('admin.login'));
             }
 
         }

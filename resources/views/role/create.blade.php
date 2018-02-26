@@ -14,7 +14,7 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form role="form" action="/roles" method="POST">
+                        <form role="form" action="{{route('roles.store')}}" method="POST">
                             {{csrf_field()}}
                             <div class="box-body">
                                 <div class="form-group">

@@ -12,7 +12,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <form action="/users/{{$user->id}}/role" method="POST">
+                    <form action="{{route('users.role', ['user'=>$user->id])}}" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
                             @foreach($roles as $role)

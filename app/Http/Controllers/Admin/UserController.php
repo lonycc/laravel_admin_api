@@ -34,7 +34,7 @@ class UserController extends Controller
         $password = bcrypt(request('password'));
         $email = request('email');
         AdminUser::create(compact('name','password','email'));
-        return redirect('/users');
+        return redirect(route('users.index'));
     }
 
     public function edit(AdminUser $user)
@@ -62,7 +62,7 @@ class UserController extends Controller
             $user->password = bcrypt(request('password'));
         }
         $user->save();
-        return redirect('/users');
+        return redirect(route('users.index'));
     }
 
     public function role(AdminUser $user)

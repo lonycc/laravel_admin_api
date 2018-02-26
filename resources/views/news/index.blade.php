@@ -7,7 +7,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">稿件列表</h3>
                     </div>
-                    <a type="button" class="btn" href="/news/create">添加稿件</a>
+                    <a type="button" class="btn" href="{{route('news.create')}}">添加稿件</a>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">
@@ -23,14 +23,14 @@
                             @foreach($news as $article)
                                 <tr>
                                     <td>{{$article->id}}.</td>
-                                    <td>[<a href="/channel/{{$article->channel_id}}/news" title="所属栏目">{{$article->channel->name}}</a>]  <a href="/news/{{$article->id}}">{{$article->title}}<a></td>
+                                    <td>[<a href="{{route('channels.news', ['channel'=>$article->channel_id])}}" title="所属栏目">{{$article->channel->name}}</a>]  <a href="{{route('news.show', ['new'=>$article->id])}}">{{$article->title}}<a></td>
                                     <td>{{$article->hits}}</td>
                                     <td>@if($article->hot == 1) 是 @else 否 @endif</td>
                                     <td>@if($article->status == 1) 正常 @else 过期 @endif</td>
                                     <td>{{$article->created_at}}</td>
                                     <td>
-                                        <a type="button" class="btn" href="/news/{{$article->id}}/edit" >编辑</a>
-                                        <a type="button" class="btn resource-delete" delete-url="/news/{{$article->id}}" href="#" >删除</a>
+                                        <a type="button" class="btn" href="{{route('news.edit', ['new'=>$article->id])}}">编辑</a>
+                                        <a type="button" class="btn resource-delete" delete-url="{{route('news.destroy', ['new'=>$article->id])}}" href="#">删除</a>
                                     </td>
                                 </tr>
                             @endforeach

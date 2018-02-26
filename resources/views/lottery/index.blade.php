@@ -7,7 +7,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">项目列表</h3>
                     </div>
-                    <a type="button" class="btn" href="/lottery/create">添加项目</a>
+                    <a type="button" class="btn" href="{{route('lotterys.create')}}">添加项目</a>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">
@@ -23,10 +23,10 @@
                                     <td>{{$lottery->name}}</td>
                                     <td>{{$lottery->info}}</td>
                                     <td>
-                                        <a type="button" class="btn" href="/lottery/{{$lottery->id}}/edit" >编辑</a>
-                                        <a type="button" class="btn resource-delete" delete-url="/lottery/{{$lottery->id}}" href="#" >删除</a>
-                                        <a type="button" class="btn" href="/lottery/{{$lottery->id}}/award" >奖项</a>
-                                        <a type="button" class="btn" href="/lottery/{{$lottery->id}}/lotto" >数据集</a>
+                                        <a type="button" class="btn" href="{{route('lotterys.edit', ['lottery'=>$lottery->id])}}">编辑</a>
+                                        <a type="button" class="btn resource-delete" delete-url="{{route('lotterys.destroy', ['lottery'=>$lottery->id])}}" href="#">删除</a>
+                                        <a type="button" class="btn" href="{{route('lotterys.award', ['lottery'=>$lottery->id])}}">奖项</a>
+                                        <a type="button" class="btn" href="{{route('lotterys.lotto', ['lottery'=>$lottery->id])}}">数据集</a>
                                     </td>
                                 </tr>
                             @endforeach

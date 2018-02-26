@@ -7,7 +7,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">角色列表</h3>
                     </div>
-                    <a type="button" class="btn" href="/roles/create">增加角色</a>
+                    <a type="button" class="btn" href="{{route('roles.create')}}">增加角色</a>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">
@@ -23,9 +23,9 @@
                                     <td>{{$role->name}}</td>
                                     <td>{{$role->description}}</td>
                                     <td>
-                                        <a type="button" class="btn" href="/roles/{{$role->id}}/edit" >编辑</a>
-                                        <a type="button" class="btn resource-delete" delete-url="/roles/{{$role->id}}" href="#" >删除</a>
-                                        <a type="button" class="btn" href="/roles/{{$role->id}}/permission" >权限管理</a>
+                                        <a type="button" class="btn" href="{{route('roles.edit', ['role'=>$role->id])}}">编辑</a>
+                                        <a type="button" class="btn resource-delete" delete-url="{{route('roles.destroy', ['role'=>$role->id])}}" href="#">删除</a>
+                                        <a type="button" class="btn" href="{{route('roles.permission', ['role'=>$role->id])}}">权限管理</a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -7,7 +7,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">数据集列表</h3>
                     </div>
-                    <a type="button" class="btn" href="/lotto/create">添加数据集</a>
+                    <a type="button" class="btn" href="{{route('lottos.create')}}">添加数据集</a>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">
@@ -23,9 +23,9 @@
                                     <td>{{$lotto->name}}</td>
                                     <td>{{$lotto->info}}</td>
                                     <td>
-                                        <a type="button" class="btn" href="/lotto/{{$lotto->id}}/edit" >编辑</a>
-                                        <a type="button" class="btn resource-delete" delete-url="/lotto/{{$lotto->id}}" href="#" >删除</a>
-                                        <a type="button" class="btn" href="/lotto/{{$lotto->id}}/data" >数据</a>
+                                        <a type="button" class="btn" href="{{route('lottos.edit', ['lotto'=>$lotto->id])}}">编辑</a>
+                                        <a type="button" class="btn resource-delete" delete-url="{{route('lottos.destroy', ['lotto'=>$lotto->id])}}" href="#">删除</a>
+                                        <a type="button" class="btn" href="{{route('lottos.data', ['lotto'=>$lotto->id])}}">数据</a>
                                     </td>
                                 </tr>
                             @endforeach

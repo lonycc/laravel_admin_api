@@ -14,7 +14,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="/lotto/{{$lotto->id}}/import" method="POST" enctype="multipart/form-data">
+                    <form role="form" action="{{route('lottos.import', ['lotto'=>$lotto->id])}}" method="POST" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="box-body">
                             <div class="form-group">

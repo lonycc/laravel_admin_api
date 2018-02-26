@@ -28,7 +28,7 @@ class RoleController extends Controller
             'description'   => 'required|min:5'
         ]);
         AdminRole::create(request(['name','description']));
-        return redirect('/roles');
+        return redirect(route('roles.index'));
     }
 
     public function edit(AdminRole $role)
@@ -45,7 +45,7 @@ class RoleController extends Controller
         $role->name = request('name');
         $role->description = request('description');
         $role->save();
-        return  redirect('/roles');
+        return redirect(route('roles.index'));
     }
 
     public function permission(AdminRole $role)
@@ -64,9 +64,9 @@ class RoleController extends Controller
         }
 
         $myPermissions = $role->permissions->toArray();
-        $myPermissions = array_column($myPermissions,'id');
+        $myPermissions = array_column($myPermissions, 'id');
 
-        return view('role.permission',compact('permissions','myPermissions','role'));
+        return view('role.permission', compact('permissions','myPermissions','role'));
     }
 
     public function storePermission(AdminRole $role)

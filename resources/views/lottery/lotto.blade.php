@@ -12,7 +12,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <form action="/lottery/{{$lottery->id}}/lotto" method="POST">
+                    <form action="{{route('lotterys.lotto', ['lottery'=>$lottery->id])}}" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
                             <div class="select">

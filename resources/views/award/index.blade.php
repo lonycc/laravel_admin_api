@@ -7,7 +7,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">奖项列表</h3>
                     </div>
-                    <a type="button" class="btn" href="/award/create">添加奖项</a>
+                    <a type="button" class="btn" href="{{route('awards.create')}}">添加奖项</a>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">
@@ -27,8 +27,8 @@
                                     <td>{{$award->score}}</td>
                                     <td>{{$award->rank}}</td>
                                     <td>
-                                        <a type="button" class="btn" href="/award/{{$award->id}}/edit" >编辑</a>
-                                        <a type="button" class="btn resource-delete" delete-url="/award/{{$award->id}}" href="#" >删除</a>
+                                        <a type="button" class="btn" href="{{route('awards.edit', ['award'=>$award->id])}}">编辑</a>
+                                        <a type="button" class="btn resource-delete" delete-url="{{route('awards.destroy', ['award'=>$award->id])}}" href="#">删除</a>
                                     </td>
                                 </tr>
                             @endforeach

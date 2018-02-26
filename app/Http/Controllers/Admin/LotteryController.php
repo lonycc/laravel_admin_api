@@ -36,7 +36,7 @@ class LotteryController extends Controller
         $info = request('info');
         $create_user = Auth::id();
         Lottery::create(compact('name','info', 'create_user'));
-        return redirect('/lottery');
+        return redirect(route('lotterys.index'));
     }
 
     // 编辑项目
@@ -61,7 +61,7 @@ class LotteryController extends Controller
         $lottery->info = request('info');
         $lottery->update_user = Auth::id();
         $lottery->save();
-        return redirect('/lottery');
+        return redirect(route('lotterys.index'));
     }
 
     // 数据集列表
@@ -79,7 +79,7 @@ class LotteryController extends Controller
         ], ['lotto.integer' => '数据集不能空']);
         $lottery->lotto_id = request('lotto');
         $lottery->save();
-        return redirect('/lottery');
+        return redirect(route('lotterys.index'));
     }
 
     // 删除项目

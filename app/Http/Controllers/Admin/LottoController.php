@@ -38,7 +38,7 @@ class LottoController extends Controller
         $info = request('info');
         $create_user = Auth::id();
         Lotto::create(compact('name', 'info', 'create_user'));
-        return redirect('/lotto');
+        return redirect(route('lottos.index'));
     }
 
     // 编辑项目
@@ -63,7 +63,7 @@ class LottoController extends Controller
         $lotto->info = request('info');
         $lotto->create_user = Auth::id();
         $lotto->save();
-        return redirect('/lotto');
+        return redirect(route('lottos.index'));
     }
 
     // 删除项目
@@ -113,7 +113,7 @@ class LottoController extends Controller
             {
                 $msg = '文件不能超过2MB';
             } else if ( ! in_array($ext, ['xls', 'xlsx', 'csv', 'txt'], true) ) {
-                $msg = '文件类型不是excel';
+                $msg = '文件类型不在允许之列';
             } else {
                 $msg = '';
             }

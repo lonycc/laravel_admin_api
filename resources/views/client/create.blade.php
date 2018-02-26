@@ -14,7 +14,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="/client" method="POST">
+                    <form role="form" action="{{route('clients.store')}}" method="POST">
                         {{csrf_field()}}
                         <div class="box-body">
                             <div class="form-group">

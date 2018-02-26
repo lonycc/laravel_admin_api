@@ -44,7 +44,7 @@ class ClientController extends Controller
             'ip' => request('ip'),
         ];
         Client::create($newClient);
-        return redirect('/client');
+        return redirect(route('clients.index'));
     }
 
     // 编辑用户
@@ -73,7 +73,7 @@ class ClientController extends Controller
             $client->password = bcrypt(request('password'));
         }
         $client->save();
-        return redirect('/client');
+        return redirect(route('clients.index'));
     }
 
     // 删除用户

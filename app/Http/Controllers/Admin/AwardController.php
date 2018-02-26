@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Validation\Rule;
 use App\Models\Award;
 use App\Models\Lottery;
 //use Illuminate\Support\Facades\Session;  
@@ -22,7 +21,7 @@ class AwardController extends Controller
     public function store()
     {
         $this->validate(request(), [
-            'name'  => 'required|string|min:3|max:50|unique:award',
+            'name'  => 'required|string|min:3|max:50',
             'info'  => 'max:50',
             'score' => 'integer',
             'rank'  => 'integer',
@@ -34,7 +33,7 @@ class AwardController extends Controller
         $rank = request('rank');
         $lottery_id = request('lottery_id');
         Award::create(compact('name', 'info', 'score', 'rank', 'lottery_id'));
-        return redirect("/lottery/{$lottery_id}/award");
+        return redirect(route('lotterys.award', ['lottery'=>$lottery_id]));
     }
 
     // 编辑奖项
@@ -49,11 +48,10 @@ class AwardController extends Controller
     {
         $this->validate(request(), [
             'name' => [
-                    'string',
-                    'min:3',
-                    'max:10',
-                    Rule::unique('award')->ignore($award->id)
-                ],
+                'string',
+                'min:3',
+                'max:10',
+            ],
             'info' => 'max:50',
             'score' => 'integer',
             'rank'  => 'integer',
@@ -65,7 +63,7 @@ class AwardController extends Controller
         $award->rank = request('rank');
         $award->lottery_id = request('lottery_id');
         $award->save();
-        return redirect("/lottery/{$award->lottery_id}/award");
+        return redirect(route('lotterys.award', ['lottery'=>$award->lottery_id]));
     }
 
     // 删除奖项

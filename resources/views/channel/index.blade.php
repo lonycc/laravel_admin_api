@@ -7,7 +7,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">栏目列表</h3>
                     </div>
-                    <a type="button" class="btn" href="/channel/create">添加栏目</a>
+                    <a type="button" class="btn" href="{{route('channels.create')}}">添加栏目</a>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">
@@ -20,7 +20,7 @@
                             @foreach($channels as $channel)
                                 <tr>
                                     <td>{{$channel->id}}.</td>
-                                    <td><a href="/channel/{{$channel->id}}/news">{{$channel->name}}</a></td>
+                                    <td><a href="{{route('channels.news', ['channel'=>$channel->id])}}">{{$channel->name}}</a></td>
                                     
                                     @if($channel->pid == 0)
                                     <td>/</td>
@@ -28,8 +28,8 @@
                                     <td>{{$channel->parent->name}}</td>
                                     @endif
                                     <td>
-                                        <a type="button" class="btn" href="/channel/{{$channel->id}}/edit" >编辑</a>
-                                        <a type="button" class="btn resource-delete" delete-url="/channel/{{$channel->id}}" href="#" >删除</a>
+                                        <a type="button" class="btn" href="{{route('channels.edit', ['channel'=>$channel->id])}}">编辑</a>
+                                        <a type="button" class="btn resource-delete" delete-url="{{route('channels.destroy', ['channel'=>$channel->id])}}" href="#">删除</a>
                                     </td>
                                 </tr>
                             @endforeach

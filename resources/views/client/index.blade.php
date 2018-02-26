@@ -7,7 +7,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">用户列表</h3>
                     </div>
-                    <a type="button" class="btn" href="/client/create">添加用户</a>
+                    <a type="button" class="btn" href="{{route('clients.create')}}">添加用户</a>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">
@@ -31,8 +31,8 @@
                                     <td>{{$client->check_ip}}</td>
                                     <td>{{$client->ip}}</td>
                                     <td>
-                                        <a type="button" class="btn" href="/client/{{$client->id}}/edit" >编辑</a>
-                                        <a type="button" class="btn resource-delete" delete-url="/client/{{$client->id}}" href="#" >删除</a>
+                                        <a type="button" class="btn" href="{{route('clients.edit', ['client'=>$client->id])}}">编辑</a>
+                                        <a type="button" class="btn resource-delete" delete-url="{{route('clients.destroy', ['client'=>$client->id])}}" href="#">删除</a>
                                     </td>
                                 </tr>
                             @endforeach

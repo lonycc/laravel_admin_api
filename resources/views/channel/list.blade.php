@@ -28,8 +28,8 @@
                                     <td>@if($article->status == 1) 正常 @else 过期 @endif</td>
                                     <td>{{$article->created_at}}</td>
                                     <td>
-                                        <a type="button" class="btn" href="/news/{{$article->id}}/edit" >编辑</a>
-                                        <a type="button" class="btn resource-delete" delete-url="/news/{{$article->id}}" href="#" >删除</a>
+                                        <a type="button" class="btn" href="{{route('news.edit', ['new'=>$article->id])}}">编辑</a>
+                                        <a type="button" class="btn resource-delete" delete-url="{{route('news.destroy', ['new'=>$article->id])}}" href="#">删除</a>
                                     </td>
                                 </tr>
                             @endforeach

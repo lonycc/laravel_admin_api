@@ -7,7 +7,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">用户列表</h3>
                     </div>
-                    <a type="button" class="btn" href="/users/create">添加用户</a>
+                    <a type="button" class="btn" href="{{route('users.create')}}">添加用户</a>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">
@@ -21,11 +21,11 @@
                                     <td>{{$user->id}}.</td>
                                     <td>{{$user->name}}</td>
                                     <td>
-                                        <a type="button" class="btn" href="/users/{{$user->id}}/edit" >编辑</a>
+                                        <a type="button" class="btn" href="{{route('users.edit', ['user'=>$user->id])}}">编辑</a>
                                         @if(\Auth::id() != $user->id)
-                                            <a type="button" class="btn resource-delete" delete-url="/users/{{$user->id}}" href="#" >删除</a>
+                                            <a type="button" class="btn resource-delete" delete-url="{{route('users.destroy', ['user'=>$user->id])}}" href="#">删除</a>
                                         @endif
-                                        <a type="button" class="btn" href="/users/{{$user->id}}/role" >角色管理</a>
+                                        <a type="button" class="btn" href="{{route('users.role', ['user'=>$user->id])}}">角色管理</a>
                                     </td>
                                 </tr>
                             @endforeach

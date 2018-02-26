@@ -14,7 +14,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="/lotto" method="POST">
+                    <form role="form" action="{{route('lottos.store')}}" method="POST">
                         {{csrf_field()}}
                         <div class="box-body">
                             <div class="form-group">

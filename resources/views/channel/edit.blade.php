@@ -14,7 +14,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="/channel/{{$channel->id}}" method="POST">
+                    <form role="form" action="{{route('channels.update', ['channel'=>$channel->id])}}" method="POST">
                         {{method_field('put')}}
                         {{csrf_field()}}
                         <div class="box-body">

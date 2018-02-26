@@ -41,13 +41,13 @@ class PermissionController extends Controller
 		$description    = request('description')?request('description'):'';
 		AdminPermission::create(compact('name','parent_id','namespace','controller','action','class','description'));
 
-		return redirect('/permissions');
+		return redirect(route('permissions.index'));
     }
 
     public function edit(AdminPermission $permission)
     {
         $parents = AdminPermission::where('parent_id',0)->orWhere('action','index')->get();
-        return view('permission.edit',compact('permission','parents'));
+        return view('permission.edit', compact('permission','parents'));
     }
 
     public function update(AdminPermission $permission)
@@ -69,7 +69,7 @@ class PermissionController extends Controller
 		$permission->class          = request('class');
 		$permission->description    = request('description')?request('description'):'';
 		$permission->save();
-		return redirect('/permissions');
+		return redirect(route('permissions.index'));
     }
 
     public function destroy(AdminPermission $permission)

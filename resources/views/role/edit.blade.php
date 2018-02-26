@@ -14,7 +14,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="/roles/{{$role->id}}" method="POST">
+                    <form role="form" action="{{route('roles.update', ['role'=>$role->id])}}" method="POST">
                         {{method_field('put')}}
                         {{csrf_field()}}
                         <div class="box-body">

@@ -11,7 +11,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form action="/roles/{{$role->id}}/permission" method="POST">
+                        <form action="{{route('roles.permission', ['role'=>$role->id])}}" method="POST">
                             {{csrf_field()}}
                             <div class="form-group">
                                 {{--@foreach($permissions as $permission)
@@ -34,7 +34,7 @@
                                                 <td>
                                                     <label>
                                                         <input type="checkbox" name="permissions[]" id="action_{{$permission['id']}}" onclick="parentChange(this,{{$permission['id']}})"
-                                                               @if (in_array($permission['id'],$myPermissions))
+                                                               @if (in_array($permission['id'], $myPermissions))
                                                                checked
                                                                @endif
                                                                value="{{$permission['id']}}">{{$permission['name']}}

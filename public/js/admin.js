@@ -63,7 +63,7 @@ if ( $('textarea#content') !== undefined )
 {
     var editor = new wangEditor('content');
     if ( editor.config ) {
-        editor.config.uploadImgUrl = '/news/image/upload';
+        editor.config.uploadImgUrl = '/admin/news/upload';
 
         // 设置 headers（举例）
         editor.config.uploadHeaders = {

@@ -14,7 +14,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="/permissions/{{$permission->id}}" method="POST">
+                    <form role="form" action="{{route('permissions.update', ['permission'=>$permission->id])}}" method="POST">
                         {{method_field('put')}}
                         {{csrf_field()}}
                         <div class="box-body">

@@ -10,7 +10,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">操作列表</h3>
                 </div>
-                <a type="button" class="btn" href="/permissions/create">增加操作</a>
+                <a type="button" class="btn" href="{{route('permissions.create')}}">增加操作</a>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <table class="table table-bordered">
@@ -36,8 +36,8 @@
                                     <td>{{$permission->parent->name}}</td>
                                 @endif
                                 <td>
-                                    <a type="button" class="btn" href="/permissions/{{$permission->id}}/edit" >编辑</a>
-                                    <a type="button" class="btn resource-delete" delete-url="/permissions/{{$permission->id}}" href="#" >删除</a>
+                                    <a type="button" class="btn" href="{{route('permissions.edit', ['permission'=>$permission->id])}}">编辑</a>
+                                    <a type="button" class="btn resource-delete" delete-url="{{route('permissions.destroy', ['permission'=>$permission->id])}}" href="#">删除</a>
                                 </td>
                             </tr>
                         @endforeach

@@ -9,9 +9,9 @@
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="/adminlte/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/adminlte/dist/css/AdminLTE.min.css">
     <!-- iCheck -->
@@ -43,7 +43,7 @@
             </div>
         @endif
 
-        <form action="/login" method="post">
+        <form action="{{route('admin.login')}}" method="post">
             {{csrf_field()}}
             <div class="form-group has-feedback">
                 <input name="name" type="name" class="form-control" placeholder="用户名">
@@ -55,8 +55,7 @@
             </div>
 
             <div class="form-group has-feedback">
-                <img src="{{url('/captcha')}}" alt="验证码" onclick="this.src='{{url('/captcha')}}?'+Math.random()" />
-                <!--{!! captcha_img() !!}-->
+                <img src="{{route('admin.captcha')}}" alt="验证码" onclick="this.src='{{route('admin.captcha')}}?'+Math.random()" />
                 <br/><br/>
                 <input name="verify" type="text" class="form-control" placeholder="验证码">
 
@@ -72,7 +71,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">登入</button>
                 </div>
                 <br/><br/>
                 <!-- /.col -->

@@ -45,7 +45,7 @@ class NewsController extends Controller
             'hot' => request('hot'),
         ];
         News::create($news);
-        return redirect('/news');
+        return redirect(route('news.index'));
     }
 
     // 编辑稿件
@@ -73,7 +73,7 @@ class NewsController extends Controller
         $news->hot = request('hot');
         $news->status = request('status');
         $news->save();
-        return redirect('/news');
+        return redirect(route('news.index'));
     }
 
     // 删除新闻
@@ -91,6 +91,13 @@ class NewsController extends Controller
     {
         $chanel = $news->channel;
         return view('news.show', compact('news', 'channel'));
+    }
+
+    // 编辑器图片上传
+    public function imageUpload(Request $request)
+    {
+        $path = $request->file('wangEditorH5File')->store(date('Ymd'), 'uploads');
+        return asset('uploads/'.$path);
     }
 
 }
