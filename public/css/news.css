@@ -1,0 +1,23 @@
+.news-title {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: normal;
+}
+
+.news-meta {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #999;
+}
+
+.news-keywords {
+    font-size: 20px;
+    color: #900;
+}
+
+.news-content {
+    font-size: 18px;
+    line-height: 1.5;
+    text-indent: 2em;
+}
