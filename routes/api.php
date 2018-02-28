@@ -26,11 +26,18 @@ $api->version('v1', function ($api) {
         $api->post('/auth/signup', 'AuthController@postSignup');
         $api->post('/auth/login', 'AuthController@postLogin');
 
+        /* 抽奖相关接口 */
         $api->get('/lotterys', 'LotteryController@index');
         $api->get('/lottery/{id}', 'LotteryController@show');
         $api->get('/lottery/{id}/data', 'LotteryController@datas');
         $api->get('/lottery/{id}/award', 'LotteryController@awards');
 
+        /* 新闻相关接口 */
+        $api->get('/news', 'NewsController@index');
+        $api->get('/news/{id}', 'NewsController@show');
+        $api->get('/channel/{id}/news', 'NewsController@getListByChannel');
+
+        /* 认证授权相关接口 */
         $api->group(['middleware' => 'jwt.auth'], function ($api) {
             $api->get('/users', 'TestController@index');
             $api->get('/user/{id}', 'TestController@show');

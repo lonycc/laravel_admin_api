@@ -48,9 +48,12 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/lottos/{lotto}/import', 'LottoController@import')->name('lottos.import');
         Route::post('/lottos/{lotto}/import', 'LottoController@storeImport')->name('lottos.import');
 
-        Route::delete('/data/{lotto}', 'DataController@destory')->name('data.destroy');
+        Route::delete('/data/{lotto}', 'DataController@destroy')->name('data.destroy');
 
         Route::get('/channels/{channel}/news', 'ChannelController@news')->name('channels.news');
         Route::post('/news/upload', 'NewsController@imageUpload')->name('news.upload');
+
+        Route::get('/logs', 'LogController@index')->name('logs.index');
+        Route::delete('/logs/{log}', 'LogController@destroy')->name('logs.destroy');
     });
 });

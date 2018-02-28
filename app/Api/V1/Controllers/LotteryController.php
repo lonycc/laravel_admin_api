@@ -2,26 +2,27 @@
 
 namespace App\Api\V1\Controllers;
 
+use App\Models\Lottery;
+use App\Models\Lotto;
 use App\Api\V1\Transformers\LotteryTransformer;
 use App\Api\V1\Transformers\DataTransformer;
 use App\Api\V1\Transformers\AwardTransformer;
-use App\Models\Lottery;
-use App\Models\Lotto;
+
 
 class LotteryController extends BaseController
 {
     // 获取全部项目
     public function index()
     {
-        $lottery = Lottery::all();
-        return $this->collection($lottery, new LotteryTransformer());
+        $lottery = Lottery::orderBy('id', 'desc')->paginate(10);
+        return $this->paginator($lottery, new LotteryTransformer());
     }
 
     // 获取指定项目
     public function show($id)
     {
         $lottery = Lottery::find($id);
-        if ( ! $lottery ) {
+        if ( $lottery == null ) {
             return $this->response->errorNotFound('不存在的项目');
         }
         return $this->item($lottery, new LotteryTransformer());
@@ -31,11 +32,11 @@ class LotteryController extends BaseController
     public function datas($id)
     {
         $lottery = Lottery::find($id);
-        if ( ! $lottery ) {
+        if ( $lottery == null ) {
             return $this->response->errorNotFound('不存在项目');
         }
         $lotto = Lotto::find($lottery->lotto_id);
-        $datas = $lotto->datas;
+        $datas = $lotto->datas()->paginate(1000);
         return $this->item($datas, new DataTransformer());
     }
 
@@ -43,7 +44,7 @@ class LotteryController extends BaseController
     public function awards($id)
     {
         $lottery = Lottery::find($id);
-        if ( ! $lottery ) {
+        if ( $lottery == null ) {
             return $this->response->errorNotFound('不存在的项目');
         }
         $awards = $lottery->awards;

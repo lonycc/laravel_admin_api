@@ -14,7 +14,7 @@ class LotteryController extends Controller
     // 抽奖项目列表
     public function index()
     {
-        $lotterys = Lottery::paginate(10);
+        $lotterys = Lottery::orderByDesc('id')->paginate(10);
         return view('lottery.index', compact('lotterys'));
     }
 

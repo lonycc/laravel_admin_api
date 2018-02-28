@@ -16,6 +16,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "^2.4",
         "laravel/framework": "5.5.*",
+        "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",
         "maatwebsite/excel": "^2.1",
         "mews/captcha": "^2.1",

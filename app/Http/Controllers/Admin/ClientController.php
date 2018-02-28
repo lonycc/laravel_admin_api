@@ -12,7 +12,7 @@ class ClientController extends Controller
     // 用户列表
     public function index()
     {
-        $clients = Client::paginate(10);
+        $clients = Client::orderByDesc('id')->paginate(10);
         return view('client.index', compact('clients'));
     }
 

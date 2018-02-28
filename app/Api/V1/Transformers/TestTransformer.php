@@ -9,7 +9,7 @@ class TestTransformer extends TransformerAbstract
     /**
      * 分开是为了解耦
      * 数据字段选择
-     * @param $lesson
+     * @param $client
      * @return $array
      */
     public function transform($client)

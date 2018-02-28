@@ -16,7 +16,7 @@ class LottoController extends Controller
     // 抽奖数据集列表
     public function index()
     {
-        $lottos = Lotto::paginate(10);
+        $lottos = Lotto::orderByDesc('id')->paginate(10);
         return view('lotto.index', compact('lottos'));
     }
 

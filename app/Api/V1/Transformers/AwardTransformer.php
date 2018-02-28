@@ -9,17 +9,17 @@ class AwardTransformer extends TransformerAbstract
     /**
      * 分开是为了解耦
      * 数据字段选择
-     * @param $lesson
+     * @param $litem
      * @return $array
      */
-    public function transform(Award $client)
+    public function transform(Award $item)
     {
         /* 隐藏数据库字段 */
         return [
-            'id' => $client['id'],
-            'name' => $client['name'],
-            'info' => $client['info'],
-            'count' => $client['score'],
+            'id' => $item['id'],
+            'name' => $item['name'],
+            'info' => $item['info'],
+            'count' => $item['score'],
         ];
     }
 }

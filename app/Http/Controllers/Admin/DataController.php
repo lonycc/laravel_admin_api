@@ -51,7 +51,7 @@ class DataController extends Controller
         });
     }
 
-    public function destory(Lotto $lotto)
+    public function destroy(Lotto $lotto)
     {
         $datas = $lotto->datas();
         $datas->delete();

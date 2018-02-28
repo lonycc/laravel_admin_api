@@ -14,7 +14,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-	    Schema::defaultStringLength(191);
+        Schema::defaultStringLength(191);
+        
+        /* 记录数据库操作日志 */
+        /*
+        \DB::listen(function ($query) {
+            //\Log::info($query->sql);
+            //\Log::info($query->bindings);
+            //\Log::info($query->time);
+        });
+        */
     }
 
     /**

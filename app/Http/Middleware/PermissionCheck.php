@@ -45,6 +45,21 @@ class PermissionCheck
         \View::composer('layout.sidebar', function($view) use ($actions) {
             $view->with('actions', $actions);
         });
+
+        /* 记录用户操作日志 */
+        if ( $request->method() !== 'GET')
+        {
+            $input = $request->all();
+            $log = new \App\Models\OperationLog();
+            $log->setAttribute('user', $user->name);
+            $log->setAttribute('path', $request->path());
+            $log->setAttribute('method', $request->method());
+            $log->setAttribute('ip', $request->ip());
+            $log->setAttribute('input', json_encode($input, JSON_UNESCAPED_UNICODE));
+            $log->save();
+        }
+        /* 记录用户操作日志end */        
+
         return $next($request);
     }
 

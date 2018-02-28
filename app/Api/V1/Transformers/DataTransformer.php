@@ -9,16 +9,16 @@ class DataTransformer extends TransformerAbstract
     /**
      * 分开是为了解耦
      * 数据字段选择
-     * @param $lesson
+     * @param $item
      * @return $array
      */
-    public function transform(LottoData $client)
+    public function transform(LottoData $item)
     {
         /* 隐藏数据库字段 */
         return [
-            'id' => $client['id'],
-            'main' => $client['main'],
-            'other' => $client['other'],
+            'id' => $item['id'],
+            'main' => $item['main'],
+            'other' => $item['other'],
         ];
     }
 }
