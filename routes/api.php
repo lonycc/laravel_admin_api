@@ -21,21 +21,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 $api = app('Dingo\Api\Routing\Router');
-$api->version('v1', function ($api) {
-    $api->group(['namespace' => 'App\Api\V1\Controllers', 'middleware' => 'jwt.api.auth'], function ($api) {
+$api->version('v1',  ['middleware' => 'api.throttle', 'limit' => 100, 'expires' => 5], function ($api) {
+    $api->group(['namespace' => 'App\Api\V1\Controllers', 'middleware' => ['jwt.api.auth', 'cors']], function ($api) {
         $api->post('/auth/signup', 'AuthController@postSignup');
         $api->post('/auth/login', 'AuthController@postLogin');
-
-        /* 抽奖相关接口 */
-        $api->get('/lotterys', 'LotteryController@index');
-        $api->get('/lottery/{id}', 'LotteryController@show');
-        $api->get('/lottery/{id}/data', 'LotteryController@datas');
-        $api->get('/lottery/{id}/award', 'LotteryController@awards');
-
-        /* 新闻相关接口 */
-        $api->get('/news', 'NewsController@index');
-        $api->get('/news/{id}', 'NewsController@show');
-        $api->get('/channel/{id}/news', 'NewsController@getListByChannel');
 
         /* 认证授权相关接口 */
         $api->group(['middleware' => 'jwt.auth'], function ($api) {
@@ -44,6 +33,21 @@ $api->version('v1', function ($api) {
             $api->get('/auth/user', 'AuthController@getUser');
             $api->patch('/auth/refresh', 'AuthController@patchRefresh');
             $api->delete('/auth/invalidate', 'AuthController@deleteInvalidate');
+
+            /* 抽奖相关接口 */
+            $api->get('/lotterys', 'LotteryController@index');
+            $api->get('/lottery/{id}', 'LotteryController@show');
+            $api->get('/lottery/{id}/data', 'LotteryController@datas');
+            $api->get('/lottery/{id}/award', 'LotteryController@awards');
+
+            /* 新闻相关接口 */
+            $api->get('/news', 'NewsController@index');
+            $api->get('/news/latest', 'NewsController@getListLatest');
+            $api->get('/news/search', 'NewsController@search');
+            $api->get('/news/{id}', 'NewsController@show');
+            $api->get('/channels', 'NewsController@channel');
+            $api->get('/channel/{id}/news', 'NewsController@getListByChannel');
+
         });
     });
 });

@@ -9,15 +9,15 @@ class TestTransformer extends TransformerAbstract
     /**
      * 分开是为了解耦
      * 数据字段选择
-     * @param $client
+     * @param $item
      * @return $array
      */
-    public function transform($client)
+    public function transform($item)
     {
         /* 隐藏数据库字段 */
         return [
-            'name' => $client['name'],
-            'email' => $client['email'],
+            'name' => $item['name'],
+            'email' => $item['email'],
         ];
     }
 }

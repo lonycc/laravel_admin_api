@@ -11,7 +11,6 @@ use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exception\HttpResponseException;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 
 class AuthController extends BaseController
@@ -60,7 +59,7 @@ class AuthController extends BaseController
     {
         try {
             $this->validate($request, [
-                'email' => 'required|email|max:255',
+                'name' => 'required',
                 'password' => 'required',
             ]);
         } catch (ValidationException $e) {
@@ -127,7 +126,7 @@ class AuthController extends BaseController
      */
     protected function getCredentials(Request $request)
     {
-        return $request->only('email', 'password');
+        return $request->only('name', 'password');
     }
 
     /**
