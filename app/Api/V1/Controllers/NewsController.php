@@ -14,13 +14,22 @@ class NewsController extends BaseController
     // 首页
     public function index()
     {
-        return ['message' => 'unfinished'];
+        $channels = $this->channel();
+        $rs = [];
+        $rs[0]['name'] = '最新';
+        $rs[0]['data'] = News::select('id', 'title', 'created_at')->where('status', 1)->limit(10)->latest()->get();
+        foreach ( $channels as $key=>$channel )
+        {
+            $rs[$key+1]['name'] = $channel->name;
+            $rs[$key+1]['data'] = News::select('id', 'title', 'created_at')->where('status', 1)->where('channel_id', $channel->id)->limit(10)->latest()->get();
+        }
+        return $rs;
     }
 
     // 获取所有频道
     public function channel()
     {
-        return Channel::all();
+        return Channel::select('id', 'name')->get();
     }
 
     public function search(Request $request)

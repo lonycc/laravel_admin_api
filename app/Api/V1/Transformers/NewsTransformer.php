@@ -18,7 +18,6 @@ class NewsTransformer extends TransformerAbstract
         return [
             'id' => $item['id'],
             'title' => $item['title'],
-            'keywords' => $item['keywords'],
             'created_at' => $item['created_at'],
             'hits' => $item['hits'],
             'channel' => $item->channel->name,
