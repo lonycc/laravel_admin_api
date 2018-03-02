@@ -16,10 +16,12 @@ class NewsController extends BaseController
     {
         $channels = $this->channel();
         $rs = [];
+        $rs[0]['channel_id'] = 0;
         $rs[0]['name'] = '最新';
         $rs[0]['data'] = News::select('id', 'title', 'created_at')->where('status', 1)->limit(10)->latest()->get();
         foreach ( $channels as $key=>$channel )
         {
+            $rs[$key+1]['channel_id'] = $channel->id; 
             $rs[$key+1]['name'] = $channel->name;
             $rs[$key+1]['data'] = News::select('id', 'title', 'created_at')->where('status', 1)->where('channel_id', $channel->id)->limit(10)->latest()->get();
         }
@@ -91,7 +93,7 @@ class NewsController extends BaseController
         $channel = Channel::find($channel_id);
         if ( $channel == null )
         {
-            return $this->response->errorNotFound('不存在的栏目');
+            return $this->getListLatest();
         }
         $news = $channel->news()->where('status', 1)->orderBy('hot', 'desc')->orderBy('created_at', 'desc')->paginate(10);
         return $this->paginator($news, new NewsTransformer());
