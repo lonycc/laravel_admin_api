@@ -28,7 +28,7 @@
                                     <td>{{$client->email}}</td>
                                     <td>{{$client->realname}}</td>
                                     <td>{{$client->flag}}</td>
-                                    <td>{{$client->check_ip}}</td>
+                                    <td>@if($client->check_ip===1) 是 @else 否 @endif</td>
                                     <td>{{$client->ip}}</td>
                                     <td>
                                         <a type="button" class="btn" href="{{route('clients.edit', ['client'=>$client->id])}}">编辑</a>

@@ -58,7 +58,7 @@ class PermissionCheck
             $log->setAttribute('input', json_encode($input, JSON_UNESCAPED_UNICODE));
             $log->save();
         }
-        /* 记录用户操作日志end */        
+        /* 记录用户操作日志end */
 
         return $next($request);
     }

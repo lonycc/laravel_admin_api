@@ -4,6 +4,7 @@ namespace App\Api\V1\Controllers;
 
 use App\Api\V1\Transformers\TestTransformer;
 use App\Api\V1\Models\User;
+use App\Models\App;
 
 class TestController extends BaseController
 {
@@ -22,6 +23,11 @@ class TestController extends BaseController
             return $this->response->errorNotFound('Test not found');
         }
         return $this->item($test, new TestTransformer());
+    }
+
+    public function apps()
+    {
+        return App::select('id', 'name', 'info', 'logo', 'url')->get();
     }
 
 }

@@ -4,8 +4,10 @@ namespace App\Api\V1\Controllers;
 
 use App\Models\News;
 use App\Models\Channel;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use App\Api\V1\Transformers\NewsTransformer;
 
@@ -77,7 +79,14 @@ class NewsController extends BaseController
     // 获取详情
     public function show($id)
     {
-        return News::where('status', 1)->findOrFail($id);
+        $news = News::where('status', 1)->find($id);
+        if ( $news != null )
+        {
+            $news->comments = $news->comments()->limit(100)->get();
+            return $news;
+        } else {
+            return new JsonResponse(['code'=>404, 'message'=>'不存在的新闻']);
+        }
     }
 
     // 获取最新列表
@@ -97,6 +106,32 @@ class NewsController extends BaseController
         }
         $news = $channel->news()->where('status', 1)->orderBy('hot', 'desc')->orderBy('created_at', 'desc')->paginate(10);
         return $this->paginator($news, new NewsTransformer());
+    }
+
+    public function postComment(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'content' => 'required|string|min:3|max:140',
+                'news_id' => 'required|integer',
+            ]);
+        } catch (ValidationException $e) {
+            return $e->getResponse();
+        }
+
+        $comment = [
+            'content' => $request->get('content'),
+            'news_id' => $request->get('news_id'),
+            'create_user' => \Auth::user()->name,
+        ];
+        $news = News::where('status', 1)->find($request->get('news_id'));
+        if ( $news == null )
+        {
+            return new JsonResponse(['code'=>403, 'message'=>'不能评论不存在的新闻']);
+        }
+
+        Comment::create($comment);
+        return new JsonResponse(['code'=>200, 'message'=>'评论成功']);
     }
 
 }

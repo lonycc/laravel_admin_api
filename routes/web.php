@@ -35,6 +35,8 @@ Route::group(['prefix' => 'admin'], function() {
         Route::resource('awards', 'AwardController', ['except' => ['show', 'index']]);
         Route::resource('news', 'NewsController');
         Route::resource('channels', 'ChannelController', ['except' => 'show']);
+        Route::resource('comments', 'CommentController', ['except' => ['show', 'create', 'store']]);
+        Route::resource('apps', 'AppController', ['except' => 'show']);
 
         Route::get('/roles/{role}/permission', 'RoleController@permission')->name('roles.permission');
         Route::post('/roles/{role}/permission', 'RoleController@storePermission')->name('roles.permission');

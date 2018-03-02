@@ -21,6 +21,16 @@
                             {!! $news->content !!}
                         </div>
                     </div>
+
+                    <div class="box-body">
+                        <p>评论列表：</p>
+                        <ul>
+                            @foreach($comments as $comment)
+                            <li>{{$comment->content}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    {{$comments->links()}}
                 </div>
             </div>
         </div>

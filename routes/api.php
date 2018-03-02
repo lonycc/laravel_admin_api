@@ -25,11 +25,13 @@ $api->version('v1',  ['middleware' => 'api.throttle', 'limit' => 100, 'expires' 
     $api->group(['namespace' => 'App\Api\V1\Controllers', 'middleware' => ['jwt.api.auth', 'cors']], function ($api) {
         $api->post('/auth/signup', 'AuthController@postSignup');
         $api->post('/auth/login', 'AuthController@postLogin');
-
+        
         /* 认证授权相关接口 */
-        $api->group(['middleware' => 'jwt.auth'], function ($api) {
+        $api->group(['middleware' => ['jwt.auth', 'api.logs']], function ($api) {
             $api->get('/users', 'TestController@index');
             $api->get('/user/{id}', 'TestController@show');
+
+            $api->get('/auth/apps', 'TestController@apps');
             $api->get('/auth/user', 'AuthController@getUser');
             $api->patch('/auth/refresh', 'AuthController@patchRefresh');
             $api->delete('/auth/invalidate', 'AuthController@deleteInvalidate');
@@ -45,9 +47,9 @@ $api->version('v1',  ['middleware' => 'api.throttle', 'limit' => 100, 'expires' 
             $api->get('/news/latest', 'NewsController@getListLatest');
             $api->get('/news/search', 'NewsController@search');
             $api->get('/news/{id}', 'NewsController@show');
+            $api->post('/news/{id}/comment', 'NewsController@postComment');
             $api->get('/channels', 'NewsController@channel');
             $api->get('/channel/{id}/news', 'NewsController@getListByChannel');
-
         });
     });
 });

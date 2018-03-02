@@ -89,8 +89,8 @@ class NewsController extends Controller
     // 单条展示
     public function show(News $news)
     {
-        $chanel = $news->channel;
-        return view('news.show', compact('news', 'channel'));
+        $comments = $news->comments()->latest()->paginate(20);
+        return view('news.show', compact('news', 'comments'));
     }
 
     // 编辑器图片上传
@@ -99,5 +99,4 @@ class NewsController extends Controller
         $path = $request->file('wangEditorH5File')->store(date('Ymd'), 'uploads');
         return asset('uploads/'.$path);
     }
-
 }

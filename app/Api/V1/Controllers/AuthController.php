@@ -3,6 +3,7 @@
 namespace App\Api\V1\Controllers;
 
 use App\Api\V1\Models\User;
+use App\Models\OperationLog;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -47,6 +48,16 @@ class AuthController extends BaseController
         ];
         $user = User::create($newUser);
         $token = JWTAuth::fromUser($user);
+        /* 注册日志 */
+        $log = [
+            'user' => 'guest',
+            'path' => $request->path(),
+            'method' => $request->method(),
+            'ip' => $request->ip(),
+            'input' => json_encode($request->all(), JSON_UNESCAPED_UNICODE),
+        ];
+        OperationLog::create($log);
+        /* 注册日志 */
         return response()->json(['code' => 200, 'token' => $token], 200);
     }
     
@@ -77,6 +88,16 @@ class AuthController extends BaseController
         }
 
         // All good so return the token
+        /* 登录日志 */
+        $log = [
+            'user' => $request->get('name'),
+            'path' => $request->path(),
+            'method' => $request->method(),
+            'ip' => $request->ip(),
+            'input' => json_encode($request->all(), JSON_UNESCAPED_UNICODE),
+        ];
+        OperationLog::create($log);
+        /* 登录日志 */        
         return $this->onAuthorized($token);
     }
 
