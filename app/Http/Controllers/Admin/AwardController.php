@@ -32,7 +32,16 @@ class AwardController extends Controller
         $score = request('score');
         $rank = request('rank');
         $lottery_id = request('lottery_id');
-        Award::create(compact('name', 'info', 'score', 'rank', 'lottery_id'));
+        
+        if ( request()->hasFile('img') )
+        {
+            $path = request()->file('img')->store(date('Ymd'), 'uploads');
+            $img = asset('uploads/'.$path);
+        } else {
+            $img = 'https://ww3.sinaimg.cn/thumb180/0073ob6Pgy1foxl9fg5odg305s06ix4j.gif';
+        }
+
+        Award::create(compact('name', 'info', 'score', 'rank', 'lottery_id', 'img'));
         return redirect(route('lotterys.award', ['lottery'=>$lottery_id]));
     }
 
@@ -62,6 +71,13 @@ class AwardController extends Controller
         $award->score = request('score');
         $award->rank = request('rank');
         $award->lottery_id = request('lottery_id');
+
+        if ( request()->hasFile('img') )
+        {
+            $path = request()->file('img')->store(date('Ymd'), 'uploads');
+            $award->img = asset('uploads/'.$path);
+        }
+
         $award->save();
         return redirect(route('lotterys.award', ['lottery'=>$award->lottery_id]));
     }

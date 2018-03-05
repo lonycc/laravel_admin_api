@@ -14,7 +14,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="{{route('awards.store')}}" method="POST">
+                    <form role="form" action="{{route('awards.store')}}" method="POST" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="box-body">
                             <div class="form-group">
@@ -39,6 +39,13 @@
                                 <input type="text" class="form-control" name="info" />
                             </div>
                         </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="img">图片</label>
+                                <input type="file" class="form-control" name="logo" placeholder="奖品图片" />
+                            </div>
+                        </div>
+
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="score">中奖数</label>

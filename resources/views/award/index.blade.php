@@ -15,6 +15,7 @@
                                 <th style="width: 10%">ID</th>
                                 <th>名称</th>
                                 <th>说明</th>
+                                <th>图片</th>
                                 <th>中奖数</th>
                                 <th>抽奖顺序</th>
                                 <th>操作</th>
@@ -24,6 +25,7 @@
                                     <td>{{$award->id}}.</td>
                                     <td>{{$award->name}}</td>
                                     <td>{{$award->info}}</td>
+                                    <td>@if($award->img) <img src="{{$award->img}}" width="64" height="64" /> @endif</td>
                                     <td>{{$award->score}}</td>
                                     <td>{{$award->rank}}</td>
                                     <td>

@@ -83,7 +83,7 @@ class ChannelController extends Controller
     // 指定栏目的稿件列表
     public function news(Channel $channel)
     {
-        $news = $channel->news()->paginate(20);
+        $news = $channel->news()->orderByDesc('id')->paginate(20);
         return view('channel.list', compact('news', 'channel'));
     }
 

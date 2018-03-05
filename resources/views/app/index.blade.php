@@ -24,7 +24,7 @@
                                     <td>{{$app->id}}.</td>
                                     <td>{{$app->name}}</td>
                                     <td>{{$app->info}}</td>
-                                    <td><img src="{{$app->logo}}" width="64" height="64" /></td>
+                                    <td>@if($app->logo) <img src="{{$app->logo}}" width="64" height="64" /> @endif</td>
                                     <td><a target="__blank" href="{{$app->url}}">{{$app->url}}</a></td>
                                     <td>
                                         <a type="button" class="btn" href="{{route('apps.edit', ['app'=>$app->id])}}">编辑</a>

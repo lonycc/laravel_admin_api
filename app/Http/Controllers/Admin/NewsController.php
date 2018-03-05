@@ -13,7 +13,7 @@ class NewsController extends Controller
     // 稿件列表
     public function index()
     {
-        $news = News::orderByDesc('created_at')->paginate(20);
+        $news = News::orderByDesc('id')->paginate(20);
         return view('news.index', compact('news'));
     }
 
@@ -79,6 +79,7 @@ class NewsController extends Controller
     // 删除新闻
     public function destroy(News $news)
     {
+        $news->comments()->delete();
         $news->delete();
         return [
             'error' => 0,

@@ -8,7 +8,7 @@ class Award extends Model
 {
     protected $table = 'award';
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'info', 'rank', 'score', 'lottery_id'];
+    protected $fillable = ['name', 'info', 'rank', 'score', 'img', 'lottery_id'];
 
     /** 
      * 查找奖项所属项目

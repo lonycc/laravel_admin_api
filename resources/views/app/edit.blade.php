@@ -35,7 +35,9 @@
                                 <label for="logo">logo</label>
                                 <input type="file" class="form-control" name="logo" placeholder="应用logo" />
                                 <br/>
+                                @if($app->logo)
                                 <img src="{{$app->logo}}" width="64" height="64" />
+                                @endif
                             </div>
                         </div>
                         <div class="box-body">

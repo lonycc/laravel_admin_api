@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 $api = app('Dingo\Api\Routing\Router');
-$api->version('v1',  ['middleware' => 'api.throttle', 'limit' => 100, 'expires' => 5], function ($api) {
+$api->version('v1',  ['middleware' => 'api.throttle', 'limit' => 1000, 'expires' => 5], function ($api) {
     $api->group(['namespace' => 'App\Api\V1\Controllers', 'middleware' => ['jwt.api.auth', 'cors']], function ($api) {
         $api->post('/auth/signup', 'AuthController@postSignup');
         $api->post('/auth/login', 'AuthController@postLogin');

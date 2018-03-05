@@ -20,6 +20,7 @@ class AwardTransformer extends TransformerAbstract
             'name' => $item['name'],
             'info' => $item['info'],
             'count' => $item['score'],
+            'img' => $item['img'],
         ];
     }
 }

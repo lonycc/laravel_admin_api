@@ -41,7 +41,7 @@ class AppController extends Controller
             $path = request()->file('logo')->store(date('Ymd'), 'uploads');
             $newApp['logo'] = asset('uploads/'.$path);
         } else {
-            $newApp['logo'] = 'https://ww3.sinaimg.cn/thumb180/0073ob6Pgy1foxl9fg5odg305s06ix4j.gif';
+            $newApp['logo'] = 'https://ww1.sinaimg.cn/images/default_d_large.gif';
         }
 
         App::create($newApp);

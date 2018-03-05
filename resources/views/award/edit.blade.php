@@ -14,7 +14,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="{{route('awards.update', ['award'=>$award->id])}}" method="POST">
+                    <form role="form" action="{{route('awards.update', ['award'=>$award->id])}}" method="POST" enctype="multipart/form-data">
                         {{method_field('put')}}
                         {{csrf_field()}}
                         <div class="box-body">
@@ -44,6 +44,18 @@
                                 <input type="text" class="form-control" name="info" value="{{$award->info}}" />
                             </div>
                         </div>
+                        
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="img">图片</label>
+                                <input type="file" class="form-control" name="img" placeholder="奖品图片" />
+                                <br/>
+                                @if($award->img)
+                                <img src="{{$award->img}}" width="64" height="64" />
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="score">中奖数</label>

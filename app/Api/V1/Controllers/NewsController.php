@@ -60,7 +60,7 @@ class NewsController extends BaseController
         if ( $channel )
             $rs = $rs->where('channel_id', $channel);
         if ( preg_match('/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/', $start) )
-            $rs = $rs->where('created_at', '>=', $start);
+            $rs = $rs->where('created_at', '>=', $start . '00:00:00');
         if ( preg_match('/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/', $end) )
             $rs = $rs->where('created_at', '<=', $end .' 23:59:59');        
         if ( in_array('field', ['title', 'keywords', 'content'], true) )
@@ -82,7 +82,8 @@ class NewsController extends BaseController
         $news = News::where('status', 1)->find($id);
         if ( $news != null )
         {
-            $news->comments = $news->comments()->limit(100)->get();
+            $news->increment('hits');
+            $news->comments = $news->comments()->latest()->limit(100)->get();
             return $news;
         } else {
             return new JsonResponse(['code'=>404, 'message'=>'不存在的新闻']);
