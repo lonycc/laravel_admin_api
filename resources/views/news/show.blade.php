@@ -23,6 +23,15 @@
                     </div>
 
                     <div class="box-body">
+                        <p>用户点击列表：
+                            @foreach($users as $user)
+                            {{$user->realname}}、
+                            @endforeach
+                        </p>
+                    </div>
+                    {{$comments->links()}}
+
+                    <div class="box-body">
                         <p>评论列表：</p>
                         <ul>
                             @foreach($comments as $comment)

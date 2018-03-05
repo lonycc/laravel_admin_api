@@ -91,7 +91,8 @@ class NewsController extends Controller
     public function show(News $news)
     {
         $comments = $news->comments()->latest()->paginate(20);
-        return view('news.show', compact('news', 'comments'));
+        $users = $news->users()->select('realname')->paginate(20);
+        return view('news.show', compact('news', 'comments', 'users'));
     }
 
     // 编辑器图片上传

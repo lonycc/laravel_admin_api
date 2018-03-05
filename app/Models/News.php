@@ -19,5 +19,16 @@ class News extends Model
     {
         return $this->hasMany('App\Models\Comment', 'news_id', 'id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(Client::class, 'user_news', 'news_id', 'user_id')->withPivot(['news_id', 'user_id', 'created_at', 'updated_at']);        
+    }
+
+    // 增加点击记录
+    public function assignUser($user)
+    {
+        $this->users()->save($user);
+    }
     
 }

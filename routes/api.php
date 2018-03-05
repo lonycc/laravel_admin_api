@@ -25,7 +25,7 @@ $api->version('v1',  ['middleware' => 'api.throttle', 'limit' => 1000, 'expires'
     $api->group(['namespace' => 'App\Api\V1\Controllers', 'middleware' => ['jwt.api.auth', 'cors']], function ($api) {
         $api->post('/auth/signup', 'AuthController@postSignup');
         $api->post('/auth/login', 'AuthController@postLogin');
-        
+                
         /* 认证授权相关接口 */
         $api->group(['middleware' => ['jwt.auth', 'api.logs']], function ($api) {
             $api->get('/users', 'TestController@index');

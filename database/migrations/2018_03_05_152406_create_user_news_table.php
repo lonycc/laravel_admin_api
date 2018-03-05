@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAwardTable extends Migration
+class CreateUserNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateAwardTable extends Migration
      */
     public function up()
     {
-        Schema::create('award', function (Blueprint $table) {
+        Schema::create('user_news', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('lottery_id');
-            $table->string('name', 10);
-            $table->string('info', 50)->nullable()->default('');
-            $table->integer('score');
-            $table->string('img')->nullable();
-            $table->integer('rank')->nullable()->default(0);
+            $table->integer('user_id');
+            $table->integer('news_id');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateAwardTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('award');
+        Schema::dropIfExists('user_news');
     }
 }
