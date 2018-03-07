@@ -83,9 +83,9 @@ class AuthController extends BaseController
         $ds = @ldap_connect('ldap://192.168.1.1', '389');
         @ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
         @ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
-        if ( @ldap_bind($ds, "{$username}@nfw.com", $password) )
+        if ( @ldap_bind($ds, "{$username}@domain.com", $password) )
         {
-            $result = @ldap_search($ds, 'dc=nfw,dc=com', "sAMAccountName={$username}", ['sAMAccountName','DisplayName']);
+            $result = @ldap_search($ds, 'dc=domain,dc=com', "sAMAccountName={$username}", ['sAMAccountName','DisplayName']);
             $info = @ldap_get_entries($ds, $result);
             $realname = @$info['0']['displayname']['0'];
             $dn = @$info['0']['dn'];
@@ -97,7 +97,7 @@ class AuthController extends BaseController
                     'name' => $username,
                     'password' => bcrypt($password),
                     'udn' => $dn,
-                    'email' => $username . '@southcn.com',
+                    'email' => $username . '@domain.com',
                     'realname' => $realname,
                     'flag' => '域用户',
                 ];
