@@ -52,7 +52,6 @@ $api->version('v1',  ['middleware' => 'api.throttle', 'limit' => 1000, 'expires'
             $api->post('/news/{id}/comment', 'NewsController@postComment');
             $api->get('/channels', 'NewsController@channel');
             $api->get('/channel/{id}/news', 'NewsController@getListByChannel');
-
         });
     });
 });

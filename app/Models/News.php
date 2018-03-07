@@ -23,7 +23,7 @@ class News extends Model
 
     public function users()
     {
-        return $this->belongsToMany(Client::class, 'user_news', 'news_id', 'user_id');        
+        return $this->belongsToMany(Client::class, 'user_news', 'news_id', 'user_id')->withPivot(['news_id', 'user_id']);        
     }
 
     // 增加点击记录

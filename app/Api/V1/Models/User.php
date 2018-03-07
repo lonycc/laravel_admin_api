@@ -17,4 +17,14 @@ class User extends Authenticatable
     protected $hidden = ['email', 'password', 'created_at', 'updated_at', 'check_ip', 'ip', 'status', 'flag', 'create_user', 'update_user'];
 
     protected $fillable = ['name', 'email', 'password'];
+
+    public function news()
+    {
+        return $this->belongsToMany(\App\Models\News::class, 'user_news', 'user_id', 'news_id');
+    }
+
+    public function assignNews($news)
+    {
+        return $this->news()->save($news);
+    }
 }

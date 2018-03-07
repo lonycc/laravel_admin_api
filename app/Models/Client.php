@@ -13,7 +13,7 @@ class Client extends Model
 
     public function news()
     {
-        return $this->belongsToMany(News::class, 'user_news', 'user_id', 'news_id');
+        return $this->belongsToMany(News::class, 'user_news', 'user_id', 'news_id')->withPivot(['user_id', 'news_id']);
     }
 
     public function apps()

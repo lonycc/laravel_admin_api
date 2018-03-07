@@ -85,14 +85,14 @@ class NewsController extends BaseController
         {
             $news->increment('hits');
             /* 记录用户点击 */
-            
-            $user = \Auth::user();
+            $user = \App\Models\Client::findMany([\Auth::user()->id]);
+            $addUsers = $user->diff($news->users);
+            foreach($addUsers as $u)
+            {
+                $news->assignUser($u);
+            }
 
-            //$news->assignUser($user);
-            
-            
             $news->comments = $news->comments()->latest()->limit(100)->get();
-            $news->hit_list = $news->users()->limit(100)->get();
             return $news;
         } else {
             return new JsonResponse(['code'=>404, 'message'=>'不存在的新闻']);

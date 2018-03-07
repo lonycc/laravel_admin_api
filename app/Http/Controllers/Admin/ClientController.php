@@ -96,9 +96,10 @@ class ClientController extends Controller
         ]);
         $apps = App::findMany(request('apps'));
         $myApps = $client->apps;
-
+        
         //要增加的应用
         $addApps = $apps->diff($myApps);
+        
         foreach($addApps as $app) {
             $client->assignApp($app);
         }
