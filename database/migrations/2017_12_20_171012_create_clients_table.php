@@ -18,6 +18,7 @@ class CreateClientsTable extends Migration
             $table->string('name', 20)->unique();
             $table->string('email', 50)->unique();
             $table->string('realname', 10)->nullable()->default('');
+            $table->string('udn')->nullable();
             $table->string('password', 100)->nullable()->default('');
             $table->enum('flag', ['域用户', '其他用户'])->nullable()->default('其他用户');
             $table->boolean('check_ip')->nullable()->default(false);

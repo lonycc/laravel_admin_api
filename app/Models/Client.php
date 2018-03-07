@@ -8,8 +8,8 @@ class Client extends Model
 {
     protected $table = 'clients';
     protected $guarded = ['id'];
-    protected $hidden = ['email', 'password', 'created_at', 'updated_at', 'check_ip', 'ip', 'status', 'flag', 'create_user', 'update_user'];
-    protected $fillable = ['name', 'email', 'realname', 'check_ip', 'status', 'ip', 'flag', 'password', 'update_user', 'create_user'];
+    protected $hidden = ['udn', 'email', 'password', 'created_at', 'updated_at', 'check_ip', 'ip', 'status', 'flag', 'create_user', 'update_user'];
+    protected $fillable = ['udn', 'name', 'email', 'realname', 'check_ip', 'status', 'ip', 'flag', 'password', 'update_user', 'create_user'];
 
     public function news()
     {

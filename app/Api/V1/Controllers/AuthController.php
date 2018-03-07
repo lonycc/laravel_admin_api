@@ -77,6 +77,38 @@ class AuthController extends BaseController
             return $e->getResponse();
         }
 
+        /* 验证ldap服务器 */
+        $username = $request->get('name');
+        $password = $request->get('password');
+        $ds = @ldap_connect('ldap://192.168.1.1', '389');
+        @ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
+        @ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
+        if ( @ldap_bind($ds, "{$username}@nfw.com", $password) )
+        {
+            $result = @ldap_search($ds, 'dc=nfw,dc=com', "sAMAccountName={$username}", ['sAMAccountName','DisplayName']);
+            $info = @ldap_get_entries($ds, $result);
+            $realname = @$info['0']['displayname']['0'];
+            $dn = @$info['0']['dn'];
+            // 查询用户是否在本地存在, 不存在则添加; 存在则更新password;
+            $user = User::where('name', $username)->first();
+            if ( ! $user )
+            {
+                $newUser = [
+                    'name' => $username,
+                    'password' => bcrypt($password),
+                    'udn' => $dn,
+                    'email' => $username . '@southcn.com',
+                    'realname' => $realname,
+                    'flag' => '域用户',
+                ];
+                User::create($newUser);
+            } else {
+                $user->password = bcrypt($password);
+                $user->save();
+            }
+        }
+        
+
         try {
             // Attempt to verify the credentials and create a token for the user
             if ( ! $token = JWTAuth::attempt($this->getCredentials($request)) ) {

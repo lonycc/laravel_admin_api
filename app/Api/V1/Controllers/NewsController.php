@@ -132,7 +132,7 @@ class NewsController extends BaseController
         $comment = [
             'content' => $request->get('content'),
             'news_id' => $request->get('news_id'),
-            'create_user' => \Auth::user()->name,
+            'create_user' => \Auth::user()->realname,
         ];
         $news = News::where('status', 1)->find($request->get('news_id'));
         if ( $news == null )
