@@ -41,6 +41,15 @@
                                 <input type="text" class="form-control" name="realname" value="{{$client->realname}}" />
                             </div>
                         </div>
+                        
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="status">状态</label>
+                                <input type="radio" name="status" value="1" @if($client->status === 1) checked @endif /><label>正常</label>
+                                <input type="radio" name="status" value="0" @if($client->status === 0) checked @endif /><label>锁定</label>
+                            </div>
+                        </div>  
+
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="check_ip">检查IP</label>

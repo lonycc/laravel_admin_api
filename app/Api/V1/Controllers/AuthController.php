@@ -83,7 +83,7 @@ class AuthController extends BaseController
                 return $this->onUnauthorized();
             }
         } catch (JWTException $e) {
-            // Something went wrong whilst attempting to encode the token
+            // Something went wrong while attempting to encode the token
             return $this->onJwtGenerationError();
         }
 

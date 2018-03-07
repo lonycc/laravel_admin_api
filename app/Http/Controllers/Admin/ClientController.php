@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\App;
 use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
@@ -26,12 +27,13 @@ class ClientController extends Controller
     public function store()
     {
         $this->validate(request(),[
-            'name'  => 'required|string|min:3|max:20|unique:clients',
+            'name' => 'required|string|min:3|max:20|unique:clients',
             'email' => 'required|email|max:50',
             'realname' => 'max:10',
             'password' => 'required|string|min:8|max:20',
             'check_ip' => 'required|integer',
-            'ip'  => 'required|string|max:100',
+            'ip' => 'required|string|max:100',
+            'status' => 'required|integer',
         ]);
 
         $newClient = [
@@ -42,6 +44,7 @@ class ClientController extends Controller
             'password' => bcrypt(request('password')),
             'check_ip' => request('check_ip'),
             'ip' => request('ip'),
+            'status' => request('status'),
         ];
         Client::create($newClient);
         return redirect(route('clients.index'));
@@ -61,10 +64,12 @@ class ClientController extends Controller
             'realname' => 'max:10',
             'check_ip' => 'required|integer',
             'ip'  => 'required|string|max:100',
+            'status' => 'required|integer',
         ]);
         $client->email = request('email');
         $client->realname = request('realname');
         $client->check_ip = request('check_ip');
+        $client->status = request('status');
         $client->ip = request('ip');
         if ( request('password') ) {
             $this->validate(request(), [
@@ -76,9 +81,43 @@ class ClientController extends Controller
         return redirect(route('clients.index'));
     }
 
+    // 应用列表
+    public function app(Client $client)
+    {
+        $apps = App::all();
+        $myApps = $client->apps;
+        return view('client.app', compact('client','apps','myApps'));
+    }
+
+    public function storeApp(Client $client)
+    {
+        $this->validate(request(),[
+            'apps' =>'array'
+        ]);
+        $apps = App::findMany(request('apps'));
+        $myApps = $client->apps;
+
+        //要增加的应用
+        $addApps = $apps->diff($myApps);
+        foreach($addApps as $app) {
+            $client->assignApp($app);
+        }
+
+        //要删除的应用
+        $deleteApps = $myApps->diff($apps);
+        foreach($deleteApps as $app) {
+            $client->deleteApp($app);
+        }
+        return back();
+    }
+
     // 删除用户
     public function destroy(Client $client)
     {
+        $apps = $client->apps;
+        foreach($apps as $app){
+            $client->deleteApp($app);
+        }
         $client->delete();
         return [
             'error' => 0,

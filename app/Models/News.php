@@ -8,6 +8,7 @@ class News extends Model
 {
     protected $table = 'news';
     protected $guarded = ['id'];
+    protected $hidden = ['create_user', 'update_user', 'updated_at'];
     protected $fillable = ['title', 'keywords', 'description', 'content', 'channel_id', 'hits', 'hot', 'status', 'update_user', 'create_user'];
 
     public function channel()
@@ -22,7 +23,7 @@ class News extends Model
 
     public function users()
     {
-        return $this->belongsToMany(Client::class, 'user_news', 'news_id', 'user_id')->withPivot(['news_id', 'user_id', 'created_at', 'updated_at']);        
+        return $this->belongsToMany(Client::class, 'user_news', 'news_id', 'user_id');        
     }
 
     // 增加点击记录

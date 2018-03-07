@@ -16,6 +16,7 @@
                                 <th>用户名</th>
                                 <th>邮箱</th>
                                 <th>备注</th>
+                                <th>状态</th>
                                 <th>用户类型</th>
                                 <th>是否限定IP</th>
                                 <th>允许IP</th>
@@ -27,10 +28,12 @@
                                     <td>{{$client->name}}</td>
                                     <td>{{$client->email}}</td>
                                     <td>{{$client->realname}}</td>
+                                    <td>@if($client->status===1) 正常 @else 锁定 @endif</td>
                                     <td>{{$client->flag}}</td>
                                     <td>@if($client->check_ip===1) 是 @else 否 @endif</td>
                                     <td>{{$client->ip}}</td>
                                     <td>
+                                        <a type="button" class="btn" href="{{route('clients.app', ['client'=>$client->id])}}">应用管理</a>
                                         <a type="button" class="btn" href="{{route('clients.edit', ['client'=>$client->id])}}">编辑</a>
                                         <a type="button" class="btn resource-delete" delete-url="{{route('clients.destroy', ['client'=>$client->id])}}" href="#">删除</a>
                                     </td>

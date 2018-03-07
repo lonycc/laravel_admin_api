@@ -57,5 +57,8 @@ Route::group(['prefix' => 'admin'], function() {
 
         Route::get('/logs', 'LogController@index')->name('logs.index');
         Route::delete('/logs/{log}', 'LogController@destroy')->name('logs.destroy');
+
+        Route::get('/clients/{client}/app', 'ClientController@app')->name('clients.app');
+        Route::post('/clients/{client}/app', 'ClientController@storeApp')->name('clients.app');        
     });
 });

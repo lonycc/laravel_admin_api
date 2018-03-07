@@ -22,6 +22,7 @@ class CreateClientsTable extends Migration
             $table->enum('flag', ['域用户', '其他用户'])->nullable()->default('其他用户');
             $table->boolean('check_ip')->nullable()->default(false);
             $table->string('ip', 100)->nullable()->default('0.0.0.0');
+            $table->boolean('status')->nullable()->default(true);
             $table->integer('create_user')->nullable()->default(0);
             $table->integer('update_user')->nullable()->default(0);
             $table->timestamps();

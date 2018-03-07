@@ -40,6 +40,15 @@
                                 <input type="text" class="form-control" name="realname" />
                             </div>
                         </div>
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="status">状态</label>
+                                <input type="radio" name="status" value="1" checked /><label>正常</label>
+                                <input type="radio" name="status" value="0" /><label>锁定</label>
+                            </div>
+                        </div>   
+
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="check_ip">检查IP</label>

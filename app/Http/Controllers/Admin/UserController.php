@@ -69,7 +69,7 @@ class UserController extends Controller
     {
         $roles = AdminRole::all();
         $myRoles = $user->roles;
-        return view('user.role',compact('user','roles','myRoles'));
+        return view('user.role', compact('user','roles','myRoles'));
     }
 
     public function storeRole(AdminUser $user)

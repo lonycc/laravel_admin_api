@@ -8,6 +8,7 @@ class Lottery extends Model
 {
     protected $table = 'lottery';
     protected $guarded = ['id'];
+    protected $hidden = ['create_user', 'update_user', 'created_at', 'updated_at'];
     protected $fillable = ['name', 'info', 'lotto_id', 'create_user', 'update_user'];
 
     /**

@@ -17,7 +17,6 @@ class CreateUserNewsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('news_id');
-            $table->timestamps();
         });
     }
 
