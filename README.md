@@ -110,11 +110,12 @@
 }
 ```
 
-## 接入其他应用实现单点登录的方式
+**接入其他应用实现单点登录的方式**
+
+其他应用需要实现一个验证逻辑, 拿到登录后的token请求`/api/auth/user`接口, 如果能获取到用户信息则鉴权成功, 执行登录; 否则跳回到统一登录入口.
 
 
-
-## 后台截图
+**后台截图**
 
 ![登录页面](./screenshot/1.png)
 
@@ -214,3 +215,13 @@
 `'Ip'  => 'Zhuzhichao\IpLocationZh\Ip::class,`
 
 `Ip::find('171.12.10.156')` or `Ip::find(Request::getClientIp())`
+
+## laravel队列
+
+配置文件`config/queue.php`, 可选驱动`sync/database/sqs/redis`等
+
+若使用`database`驱动, 需要执行 `php artisan queue:table` 和 `php aritsan migrate` 以创建表.
+
+若使用`redis`驱动, 需要配置`config/databse.php`里的`redis`项; 需要安装依赖`predis/predis`.
+
+执行 `php artisan make:job SendReminderEmail` 将在 `app/Jobs` 目录下生成 `SendReminderEmail.php`

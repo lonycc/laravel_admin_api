@@ -25,8 +25,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        // $schedule->command('inspire')->hourly()->sendOutputTo($filePath)->emailOutputTo('foo@example.com')->appendOutputTo($filePath);
+        // $schedule->command('inspire')->withoutOverlapping();
+        // $schedule->call(function(){echo 'test it';})->daily();
+        // $schedule->command(EmailsCommand::class, ['--force'])->hourly()->between('8:00', '17:00');
+        // $schedule->job(new Heartbeat)->everyFiveMinutes();
+        // $schedule->exec('node /home/forge/script.js')->weekdays();
     }
 
     /**

@@ -35,7 +35,8 @@
                         <p>评论列表：</p>
                         <ul>
                             @foreach($comments as $comment)
-                            <li>{{$comment->content}}</li>
+                            <li>{{$comment->create_user}} : {{$comment->content}}</li>
+                            <br/>
                             @endforeach
                         </ul>
                     </div>

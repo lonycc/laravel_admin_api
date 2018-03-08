@@ -92,7 +92,7 @@ class NewsController extends BaseController
                 $news->assignUser($u);
             }
 
-            $news->comments = $news->comments()->latest()->limit(100)->get();
+            $news->comments = $news->comments()->limit(100)->get();
             return $news;
         } else {
             return new JsonResponse(['code'=>404, 'message'=>'不存在的新闻']);

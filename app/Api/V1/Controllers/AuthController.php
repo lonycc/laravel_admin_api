@@ -78,6 +78,7 @@ class AuthController extends BaseController
         }
 
         /* 验证ldap服务器 */
+        /*
         $username = $request->get('name');
         $password = $request->get('password');
         $ds = @ldap_connect('ldap://192.168.1.1', '389');
@@ -107,7 +108,7 @@ class AuthController extends BaseController
                 $user->save();
             }
         }
-        
+        */
 
         try {
             // Attempt to verify the credentials and create a token for the user
