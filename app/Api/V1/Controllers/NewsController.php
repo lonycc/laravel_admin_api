@@ -91,7 +91,8 @@ class NewsController extends BaseController
             {
                 $news->assignUser($u);
             }
-
+            $news->last = News::where('status', 1)->find($id-1);
+            $news->next = News::where('status', 1)->find($id+1);
             $news->comments = $news->comments()->limit(100)->get();
             return $news;
         } else {
@@ -122,13 +123,14 @@ class NewsController extends BaseController
     {
         try {
             $this->validate($request, [
-                'content' => 'required|string|min:3|max:140',
+                'content' => 'required|min:3|max:140',
                 'news_id' => 'required|integer',
             ]);
-        } catch (ValidationException $e) {
-            return $e->getResponse();
+        }  catch (ValidationException $e) {
+            return new JsonResponse(['code'=>500, 'message'=>'评论内容应在3到140字之间']);
         }
-
+        
+        
         $comment = [
             'content' => $request->get('content'),
             'news_id' => $request->get('news_id'),
@@ -139,7 +141,6 @@ class NewsController extends BaseController
         {
             return new JsonResponse(['code'=>403, 'message'=>'不能评论不存在的新闻']);
         }
-
         Comment::create($comment);
         return new JsonResponse(['code'=>200, 'message'=>'评论成功']);
     }

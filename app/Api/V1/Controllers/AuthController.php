@@ -73,9 +73,10 @@ class AuthController extends BaseController
                 'name' => 'required',
                 'password' => 'required',
             ]);
-        } catch (ValidationException $e) {
-            return $e->getResponse();
+        }  catch (ValidationException $e) {
+            return new JsonResponse(['code'=>500, 'message'=>'用户名和密码不能空']);
         }
+
 
         /* 验证ldap服务器 */
         /*
