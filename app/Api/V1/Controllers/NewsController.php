@@ -130,9 +130,8 @@ class NewsController extends BaseController
             return new JsonResponse(['code'=>500, 'message'=>'评论内容应在3到140字之间']);
         }
         
-        
         $comment = [
-            'content' => $request->get('content'),
+            'content' => \Purifier::clean($request->get('content')),
             'news_id' => $request->get('news_id'),
             'create_user' => \Auth::user()->realname,
         ];

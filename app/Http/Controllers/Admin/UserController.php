@@ -25,15 +25,17 @@ class UserController extends Controller
     public function store()
     {
         $this->validate(request(),[
-            'name'      => 'required|string|min:3|max:10|unique:users',
-            'password'  => 'required|min:8|max:20',
-            'email'     => 'required|email|unique:users'
+            'name' => 'required|string|min:3|max:10|unique:users',
+            'password' => 'required|min:8|max:20',
+            'email' => 'required|email|unique:users',
+            'realname' => 'required|min:2|max:10|unique:users',
         ]);
 
         $name = request('name');
         $password = bcrypt(request('password'));
         $email = request('email');
-        AdminUser::create(compact('name','password','email'));
+        $realname = request('realname');
+        AdminUser::create(compact('name','password','email', 'realname'));
         return redirect(route('users.index'));
     }
 
@@ -51,13 +53,24 @@ class UserController extends Controller
                 'max:10',
                 Rule::unique('users')->ignore($user->id)
             ],
-            'email' => 'email'
+            'email' => [
+                'email',
+                'required',
+                Rule::unique('users')->ignore($user->id)
+            ],
+            'realname' => [
+                'required',
+                'min:2',
+                'max:10',
+                Rule::unique('users')->ignore($user->id)
+            ],
         ]);
         $user->name = request('name');
         $user->email = request('email');
+        $user->realname = request('realname');
         if ( request('password') ) {
             $this->validate(request(), [
-                'password'  => 'min:5|max:10'
+                'password'  => 'min:8|max:20'
             ]);
             $user->password = bcrypt(request('password'));
         }

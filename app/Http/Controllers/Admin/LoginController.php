@@ -38,7 +38,7 @@ class LoginController extends Controller
             $log->save();
             /* 记录登录日志 */
             
-            return redirect(route('admin.home'));
+            return redirect(route('home.index'));
         } else {
             return Redirect::back()->withErrors('账号密码不匹配');
         }

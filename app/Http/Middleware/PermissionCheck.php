@@ -38,7 +38,7 @@ class PermissionCheck
 
             if ( !$this->checkPermission($currentAction, $actions) ) {
                 \Session::flash('msg', '对不起,你没有权限访问该资源');
-                return redirect(route('admin.home'));
+                return redirect(route('home.index'));
             }
         }
 

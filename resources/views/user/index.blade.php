@@ -14,12 +14,16 @@
                             <tr>
                                 <th style="width: 10%">ID</th>
                                 <th>用户</th>
+                                <th>备注</th>
+                                <th>邮箱</th>
                                 <th>操作</th>
                             </tr>
                             @foreach($users as $user)
                                 <tr>
                                     <td>{{$user->id}}.</td>
                                     <td>{{$user->name}}</td>
+                                    <td>{{$user->realname}}</td>
+                                    <td>{{$user->email}}</td>
                                     <td>
                                         <a type="button" class="btn" href="{{route('users.edit', ['user'=>$user->id])}}">编辑</a>
                                         @if(\Auth::id() != $user->id)

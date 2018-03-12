@@ -9,7 +9,7 @@ class AdminUser extends Authenticatable
 {
     protected $table = 'users';
     protected $guarded = ['id', 'password'];
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'realname'];
     protected $hidden = ['password', 'remember_token'];
 
     public function roles()

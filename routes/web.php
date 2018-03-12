@@ -24,7 +24,9 @@ Route::group(['prefix' => 'admin'], function() {
     });
 
     Route::group(['namespace' => 'Admin', 'middleware' => 'permissionCheck'], function() {
-        Route::get('/home', 'HomeController@index')->name('admin.home');
+        Route::get('/home', 'HomeController@index')->name('home.index');
+        Route::get('/home/password', 'HomeController@edit')->name('password.edit');
+        Route::put('/home/password', 'HomeController@update')->name('password.update');
 
         Route::resource('users', 'UserController', ['except' => 'show']);
         Route::resource('roles', 'RoleController', ['except' => 'show']);

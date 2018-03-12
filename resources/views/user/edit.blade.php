@@ -19,22 +19,28 @@
                         {{csrf_field()}}
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="exampleInputName">用户名</label>
-                                <input type="text" class="form-control" name="name" value="{{$user->name}}">
+                                <label for="name">用户名</label>
+                                <input type="text" class="form-control" name="name" value="{{$user->name}}" placeholder="用户名" />
                             </div>
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="exampleInputPassword">密码</label>
-                                <input type="text" class="form-control" name="password">
+                                <label for="password">密码</label>
+                                <input type="text" class="form-control" name="password" placeholder="用户密码" />
                             </div>
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">邮箱</label>
-                                <input type="text" class="form-control" name="email" value="{{$user->email}}">
+                                <label for="email">邮箱</label>
+                                <input type="text" class="form-control" name="email" value="{{$user->email}}" placeholder="用户邮箱" />
                             </div>
                         </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="realname">备注</label>
+                                <input type="text" class="form-control" name="realname" value="{{$user->realname}}" placeholder="用户备注" />
+                            </div>
+                        </div>                 
                         <!-- /.box-body -->
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">提交</button>
