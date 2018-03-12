@@ -46,7 +46,7 @@ class PermissionController extends Controller
 
     public function edit(AdminPermission $permission)
     {
-        $parents = AdminPermission::where('parent_id',0)->orWhere('action','index')->get();
+        $parents = AdminPermission::where('parent_id', 0)->orWhere('action', 'index')->get();
         return view('permission.edit', compact('permission','parents'));
     }
 
