@@ -47,7 +47,7 @@
 
 **登录**
 
-`curl -X POST -F "email=test@test.com" -F "password=test1234" "http://localhost:8000/api/auth/login"`
+`curl -X POST -F "name=test" -F "password=test1234" "http://localhost:8000/api/auth/login"`
 
 返回结果
 
@@ -60,6 +60,8 @@
   }
 }
 ```
+
+> 注意: 你可以改成用邮箱和密码去认证登录, 需要改动`app/Api/V1/Controllers/AuthController.php`中的`getCredentials`方法, 改成`return $request->only('email', 'password');`即可.
 
 **请求权限数据**
 
