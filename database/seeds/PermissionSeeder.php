@@ -28,7 +28,7 @@ class PermissionSeeder extends Seeder
             'name'          => '超级管理员',
             'description'   => '最高权限管理员'
         ]);
-        $this->role = \App\Models\adminRole::create([
+        $this->role = \App\Models\AdminRole::create([
             'name'          => '测试员',
             'description'   => '测试模块'
         ]);
