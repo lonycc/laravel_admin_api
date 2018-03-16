@@ -24,7 +24,7 @@
 
 ## 开始
 
-浏览器打开http://localhost:8000/  进入登录界面：
+浏览器打开 `http://localhost:8000/admin/login` 进入登录界面：
 
 用户角色：用户名/密码
 
