@@ -42,12 +42,12 @@ class PermissionSeeder extends Seeder
 
     private function user()
     {
-        $this->admin = \App\Models\User::create([
+        $this->admin = \App\Models\AdminUser::create([
             'name'      => 'admin',
             'email'     => 'admin@admin.com',
             'password'  => bcrypt('123456')
         ]);
-        $this->test = \App\Models\User::create([
+        $this->test = \App\Models\AdminUser::create([
             'name'      => 'test',
             'email'     => 'test@test.com',
             'password'  => bcrypt('123456')
