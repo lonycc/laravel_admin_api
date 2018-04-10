@@ -2,7 +2,17 @@ language: php
 php:
   - '7.1'
   - '7.2'
-script:
+  
+sudo: false
+
+env:
+  - APP_DEBUG=false
+
+install:
+  - composer install --prefer-dist --optmize-autoloader --quiet
+
+script: 
+  - phpunit -c phpunit.xml --coverage-text
   - composer install
   - php artisan migrate
   - php artisan db:seed --class=PermissionSeeder
