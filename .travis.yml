@@ -13,7 +13,3 @@ install:
 
 script: 
   - phpunit -c phpunit.xml --coverage-text
-  - composer install
-  - php artisan migrate
-  - php artisan db:seed --class=PermissionSeeder
-  - php artisan serve
