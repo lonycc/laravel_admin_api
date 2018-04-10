@@ -9,7 +9,7 @@ env:
   - APP_DEBUG=false
 
 install:
-  - composer install --prefer-dist --optmize-autoloader --quiet
+  - composer install --prefer-dist --quiet
 
 script: 
   - phpunit -c phpunit.xml --coverage-text
