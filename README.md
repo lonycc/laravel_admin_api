@@ -1,5 +1,6 @@
-# laravel5.5 后台管理
+[![Build Status](https://travis-ci.org/tonyxyl/laravel_admin_api.svg?branch=master)](https://travis-ci.org/tonyxyl/laravel_admin_api)
 
+# laravel5.5 后台管理
 
 ## 启动步骤
 
