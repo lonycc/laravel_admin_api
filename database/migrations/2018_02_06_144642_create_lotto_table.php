@@ -18,7 +18,7 @@ class CreateLottoTable extends Migration
             $table->string('name', 50);
             $table->string('info', 50)->nullable()->default('');
             $table->integer('create_user');
-            $table->integer('update_user')->nullable->default(0);
+            $table->integer('update_user')->nullable()->default(0);
             $table->timestamps();
         });
         Schema::create('lotto_data', function (Blueprint $table) {
